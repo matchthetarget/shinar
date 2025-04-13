@@ -12,7 +12,7 @@
 </div>
 
 <div class="list-group">
-  <% @chat.messages.order(created_at: :asc).group_by { |m| m.created_at.to_date }.each do |day, messages| %>
+  <% @chat.messages.order(created_at: :asc).group_by_day(&:created_at).each do |day, messages| %>
     <div class="list-group-item text-center bg-light">
       <% if day == Date.today %>
         Today
