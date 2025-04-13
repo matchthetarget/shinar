@@ -23,6 +23,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -30,29 +31,6 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-      <div class="container">
-        <a class="navbar-brand" href="/">Shinar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= active_link_to "Chats", root_path, class: "nav-link", active: :exact %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to "Users", users_path, class: "nav-link" %>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <span class="nav-link"><%= current_user.name %></span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
     <div class="container py-4">
       <%= render "shared/flash" %>

@@ -74,39 +74,39 @@ task({ sample_data: :environment }) do
       # Other chats started 1-30 days ago
       chat_start_time = rand(1..30).days.ago
     end
-    
+
     # Root message content based on chat subject
     root_content = case chat.subject
-      when "Berlin Restaurant Recommendations"
+    when "Berlin Restaurant Recommendations"
         "Excuse me, could you recommend a good restaurant nearby?"
-      when "Tokyo Subway Directions"
+    when "Tokyo Subway Directions"
         "Sumimasen, how do I get to Shibuya station from here?"
-      when "CDMX Street Food Guide"
+    when "CDMX Street Food Guide"
         "Hola! Where can I find the best tacos around here?"
-      when "Paris Museum Hours"
+    when "Paris Museum Hours"
         "Bonjour! What time does the Louvre close today?"
-      when "Seoul Shopping District"
+    when "Seoul Shopping District"
         "Excuse me, which direction is Myeongdong shopping area?"
-      when "NYC Theater Tickets"
+    when "NYC Theater Tickets"
         "Hi there! Any tips on getting last-minute Broadway tickets?"
-      when "Berlin Nightlife"
+    when "Berlin Nightlife"
         "Hey, which clubs would you recommend in Kreuzberg?"
-      when "Tokyo Cherry Blossom Spots"
+    when "Tokyo Cherry Blossom Spots"
         "Could you tell me the best places to see cherry blossoms this week?"
-      when "CDMX Taxi Fare"
+    when "CDMX Taxi Fare"
         "Approximately how much should a taxi cost to Coyoacán?"
-      when "Paris Cafe Conversation"
+    when "Paris Cafe Conversation"
         "Bonjour! Is this seat taken? I'm visiting from abroad."
-      when "Seoul Market Bargaining"
+    when "Seoul Market Bargaining"
         "Hello! Is it possible to negotiate on the price of this?"
-      when "NYC Subway Directions"
+    when "NYC Subway Directions"
         "Excuse me, which train should I take to get to Central Park?"
-      when "Berlin Hotel Services"
+    when "Berlin Hotel Services"
         "Guten Tag! Does this hotel offer laundry service?"
-      else
+    else
         "Hello there! Can you help me with #{chat.subject}?"
     end
-    
+
     root_message = Message.create!(
       chat: chat,
       author: first_author,
@@ -123,14 +123,14 @@ task({ sample_data: :environment }) do
     else
       message_count = rand(20..40) # Fewer messages for recent chats
     end
-    
+
     current_time = chat_start_time
     chat_duration = Time.current - chat_start_time
-    
+
     # For older chats, distribute messages with periods of activity and inactivity
     message_count.times do |i|
       author = chat_users.sample
-      
+
       # Create varied message timings with realistic patterns
       if chat_start_time < 6.months.ago
         if i % 15 == 0 && i > 0
@@ -147,12 +147,12 @@ task({ sample_data: :environment }) do
         # For newer chats, messages are more evenly spaced
         time_increment = rand(1.minute..6.hours)
       end
-      
+
       current_time += time_increment
-      
+
       # Don't create messages in the future
       break if current_time > Time.current
-      
+
       # For very old chats, ensure some recent activity too
       if chat_start_time < 1.year.ago && i > message_count * 0.7 && current_time < 1.month.ago
         # Jump ahead to create some recent messages
@@ -466,23 +466,23 @@ task({ sample_data: :environment }) do
         # Longer, paragraph-style messages 30% of the time
         content = [
           "I've been exploring the city for a few days now and I'm absolutely loving it! The architecture is stunning and the food has been incredible. I'm trying to find some less touristy spots though. Do you have any recommendations for places where locals like to hang out? I'd love to experience something more authentic than what's in the guidebooks.",
-          
+
           "This is my first time traveling solo and I'm a bit nervous about getting around. I've heard that the public transportation system here is really efficient, but I'm struggling to understand the ticketing system. Is there a day pass or something I can buy that would be more economical than single tickets? Also, are there any neighborhoods I should avoid, especially at night?",
-          
+
           "Thank you so much for all your help yesterday! I followed your advice and went to that local restaurant you recommended. The food was amazing and the owner was so friendly - he even gave us a free dessert when he found out we were visitors! I was wondering if you could help me again today. I'm looking for somewhere to buy authentic souvenirs that aren't overpriced tourist traps.",
-          
+
           "I'm trying to find a balance between seeing the famous attractions and experiencing daily life here. Yesterday I visited the main museum and it was spectacular, but today I'd like to just wander and get lost in the city. Is this area good for walking around? Are there any interesting markets or street food areas nearby that would be worth exploring?",
-          
+
           "We're planning our last day here tomorrow and can't decide what to do! We've already seen the major attractions, but feel like we're missing something important. If you had just one day left in this city, what would you do? We're particularly interested in history and local cuisine, but open to any suggestions you might have.",
-          
+
           "I've been having trouble finding vegetarian options that are also authentic local cuisine. Most restaurants seem to focus heavily on meat dishes. Do you know any places that offer traditional food but with good vegetarian choices? I don't want to just eat at international restaurants - I really want to try the local specialties, just without meat if possible.",
-          
+
           "I'm staying here for about a month to improve my language skills. Do you know of any casual meetups or language exchange events where I could practice with locals? I'm also looking for a good café with reliable wifi where I could spend a few hours working and studying. Somewhere not too noisy but with a nice atmosphere would be perfect.",
-          
+
           "My flight home isn't until late tomorrow night, and I have to check out of my accommodation by noon. Do you have any suggestions for what I could do with my luggage during the day? And maybe recommendations for how to spend those last hours? I'd rather not just sit at the airport all day if there's a better alternative.",
-          
+
           "I'm traveling with my elderly parents who have some mobility issues. We're looking for interesting cultural experiences that don't involve too much walking or standing. Are there any seated performances of traditional music or dance that you would recommend? Or perhaps museums or galleries that are particularly accessible?",
-          
+
           "I've been collecting recommendations for my next trip and would love your input as a local. If you were going to create a perfect three-day itinerary for someone visiting for the first time, what would it include? I'm especially interested in hidden gems and authentic experiences that really capture the essence of this place and its culture."
         ].sample
       end
@@ -495,7 +495,7 @@ task({ sample_data: :environment }) do
         updated_at: current_time
       )
     end
-    
+
     # Update chat timestamps to match their most recent message
     latest_message = chat.messages.order(created_at: :desc).first
     if latest_message.present?

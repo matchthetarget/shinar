@@ -1,15 +1,15 @@
 <% content_for :title, "Chats" %>
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Chats</li>
-  </ol>
-</nav>
-
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>Chats</h1>
+  <nav aria-label="breadcrumb" class="mb-0">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item active" aria-current="page">Chats</li>
+    </ol>
+  </nav>
   
-  <%= button_to "New chat", chats_path, class: "btn btn-primary" %>
+  <%= button_to chats_path, method: :post, class: "bg-transparent border-0 p-0" do %>
+    <i class="fas fa-edit fa-lg text-primary"></i>
+  <% end %>
 </div>
 
 <div id="chats" class="list-group">

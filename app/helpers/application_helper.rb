@@ -1,10 +1,10 @@
 module ApplicationHelper
   def smart_timestamp(datetime)
     return "" if datetime.nil?
-    
+
     now = Time.current
     yesterday = 1.day.ago.to_date
-    
+
     if datetime.to_date == now.to_date
       # Today: show time (4:33 PM)
       datetime.strftime("%l:%M%p").strip.downcase

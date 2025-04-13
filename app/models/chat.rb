@@ -27,9 +27,14 @@ class Chat < ApplicationRecord
   has_secure_token
 
   after_create :update_subject
+  after_create :add_creator_as_member
 
   def update_subject
     self.update(subject: "Chat ##{id}") if subject == "pending"
+  end
+  
+  def add_creator_as_member
+    chat_users.create(user: creator) unless users.include?(creator)
   end
 
   def to_param
