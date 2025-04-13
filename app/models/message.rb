@@ -20,7 +20,7 @@
 #  fk_rails_...  (chat_id => chats.id)
 #
 class Message < ApplicationRecord
-  belongs_to :chat
+  belongs_to :chat, touch: true
   belongs_to :author, class_name: "User"
 
   validates :content, presence: true

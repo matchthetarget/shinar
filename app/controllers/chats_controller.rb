@@ -3,7 +3,7 @@ class ChatsController < ApplicationController
 
   # GET /chats or /chats.json
   def index
-    @chats = Chat.all
+    @chats = Chat.order(updated_at: :desc)
   end
 
   # GET /chats/1 or /chats/1.json
@@ -65,6 +65,6 @@ class ChatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.expect(chat: [ :subject ])
+      params.require(:chat).permit(:subject)
     end
 end

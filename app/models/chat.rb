@@ -35,4 +35,8 @@ class Chat < ApplicationRecord
   def to_param
     token
   end
+  
+  def most_recent_message
+    messages.order(created_at: :desc).first
+  end
 end
