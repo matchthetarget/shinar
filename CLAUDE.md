@@ -15,7 +15,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Git
 
 - Before every commit, `bundle exec rubocop -A`.
-- Write a great git commit message. Don't add Claude attribution.
+- Don't add Claude attribution.
+- Write a great git commit message.
 
 ## UI
 
