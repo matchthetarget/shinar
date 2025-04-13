@@ -1,7 +1,7 @@
 <div id="<%= dom_id message %>" class="list-group-item">
   <div class="d-flex justify-content-between">
     <strong class="text-nowrap text-secondary"><%= message.author.name %></strong>
-    <small class="text-muted"><%= message.created_at.strftime("%-I:%M %p") %></small>
+    <small class="text-muted"><%= smart_timestamp(message.created_at) %></small>
   </div>
   <div>
     <%= message.content %>

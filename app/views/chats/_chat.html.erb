@@ -1,6 +1,6 @@
 <div id="<%= dom_id chat %>" class="d-flex justify-content-between w-100">
   <div class="overflow-hidden">
-    <h5 class="mb-1"><%= chat.subject %></h5>
+    <div class="fw-medium"><%= chat.subject %></div>
     <div class="text-body-secondary text-truncate">
       <% if chat.most_recent_message.present? %>
         <small><%= truncate(chat.most_recent_message.content, length: 50) %></small>
