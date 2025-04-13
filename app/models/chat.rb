@@ -29,13 +29,13 @@ class Chat < ApplicationRecord
   after_create :update_subject
 
   def update_subject
-    self.update subject: "Chat ##{id}"
+    self.update(subject: "Chat ##{id}") if subject == "pending"
   end
 
   def to_param
     token
   end
-  
+
   def most_recent_message
     messages.order(created_at: :desc).first
   end
