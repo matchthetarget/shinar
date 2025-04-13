@@ -1,0 +1,16 @@
+
+<% content_for :title, "Users" %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Users</h1>
+  <%= link_to "New user", new_user_path, class: "btn btn-primary" %>
+</div>
+
+<div id="users" class="list-group">
+  <% @users.each do |user| %>
+    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <%= render user %>
+      <%= link_to "Show this user", user, class: "btn btn-sm btn-outline-primary" %>
+    </div>
+  <% end %>
+</div>

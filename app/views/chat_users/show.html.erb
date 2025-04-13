@@ -1,0 +1,9 @@
+
+<%= render @chat_user %>
+
+<div>
+  <%= link_to "Edit this chat user", edit_chat_user_path(@chat_user) %> |
+  <%= link_to "Back to chat users", chat_users_path %>
+
+  <%= button_to "Destroy this chat user", @chat_user, method: :delete %>
+</div>

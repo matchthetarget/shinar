@@ -1,0 +1,12 @@
+<% content_for :title, "Editing chat user" %>
+
+<h1>Editing chat user</h1>
+
+<%= render "form", chat_user: @chat_user %>
+
+<br>
+
+<div>
+  <%= link_to "Show this chat user", @chat_user %> |
+  <%= link_to "Back to chat users", chat_users_path %>
+</div>

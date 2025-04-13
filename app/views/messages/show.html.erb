@@ -1,0 +1,9 @@
+
+<%= render @message %>
+
+<div>
+  <%= link_to "Edit this message", edit_chat_message_path(@chat, @message) %> |
+  <%= link_to "Back to chat", chat_path(@chat) %>
+
+  <%= button_to "Destroy this message", chat_message_path(@chat, @message), method: :delete %>
+</div>

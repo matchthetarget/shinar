@@ -1,0 +1,11 @@
+<% content_for :title, "New chat user" %>
+
+<h1>New chat user</h1>
+
+<%= render "form", chat_user: @chat_user %>
+
+<br>
+
+<div>
+  <%= link_to "Back to chat users", chat_users_path %>
+</div>

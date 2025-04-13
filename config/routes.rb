@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  root to: "chats#index"
+  resources :chat_users
+  resources :chats, param: :token do
+    resources :messages
+  end
+  resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

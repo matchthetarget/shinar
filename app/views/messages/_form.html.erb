@@ -1,0 +1,15 @@
+<%= form_with(model: [chat, message], data: { controller: "autofocus" }) do |form| %>
+  <div class="mb-3">
+    <%= form.label :content, class: "visually-hidden" %>
+    <%= form.text_field :content, class: "form-control #{'is-invalid' if message.errors[:content].any?}", autofocus: true %>
+    <% if message.errors[:content].any? %>
+      <div <%# class="invalid-feedback" %> class="text-danger">
+        <%= message.errors[:content].first %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

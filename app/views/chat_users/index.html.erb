@@ -1,0 +1,15 @@
+
+<% content_for :title, "Chat users" %>
+
+<h1>Chat users</h1>
+
+<div id="chat_users">
+  <% @chat_users.each do |chat_user| %>
+    <%= render chat_user %>
+    <p>
+      <%= link_to "Show this chat user", chat_user %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New chat user", new_chat_user_path %>

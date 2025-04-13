@@ -1,0 +1,18 @@
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%= chats_path %>">Chats</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @chat.subject %></li>
+  </ol>
+</nav>
+
+<div class="d-flex gap-2 mb-4">
+  <%= link_to "Edit this chat", edit_chat_path(@chat), class: "btn btn-sm btn-outline-primary" %>
+  <%= button_to "Destroy this chat", @chat, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
+</div>
+
+<div class="list-group">
+  <%= render @chat.messages.order(created_at: :asc) %>
+
+  <%= render "new_message_form", chat: @chat %>
+</div>
