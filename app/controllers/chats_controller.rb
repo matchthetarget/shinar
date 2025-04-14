@@ -3,11 +3,14 @@ class ChatsController < ApplicationController
 
   # GET /chats or /chats.json
   def index
-    @chats = Chat.order(updated_at: :desc)
+    @chats = current_user.chats.order(updated_at: :desc)
   end
 
   # GET /chats/1 or /chats/1.json
   def show
+    unless @chat.users.include?(current_user)
+      @chat.chat_users.create(user: current_user)
+    end
   end
 
   # GET /chats/new
