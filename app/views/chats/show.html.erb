@@ -30,17 +30,25 @@
 </div>
 
 <div class="list-group mb-0">
-  <% @chat.messages.order(created_at: :asc).group_by_day(&:created_at).each do |day, messages| %>
+  <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
+  
+  <% if messages_by_day.empty? %>
     <div class="list-group-item text-center bg-light text-nowrap">
-      <% if day == Date.today %>
-        Today
-      <% elsif day == Date.yesterday %>
-        Yesterday
-      <% else %>
-        <%= day.strftime("%A, %B %-d, %Y") %>
-      <% end %>
+      Today
     </div>
-    <%= render messages %>
+  <% else %>
+    <% messages_by_day.each do |day, messages| %>
+      <div class="list-group-item text-center bg-light text-nowrap">
+        <% if day == Date.today %>
+          Today
+        <% elsif day == Date.yesterday %>
+          Yesterday
+        <% else %>
+          <%= day.strftime("%A, %B %-d, %Y") %>
+        <% end %>
+      </div>
+      <%= render messages %>
+    <% end %>
   <% end %>
 
   <%= render "new_message_form", chat: @chat %>
