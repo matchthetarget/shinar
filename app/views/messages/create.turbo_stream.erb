@@ -1,0 +1,5 @@
+<turbo-stream action="refresh"></turbo-stream>
+
+<%= turbo_stream.replace dom_id(@chat, :new_message_form) do %>
+  <%= render "new_message_form", chat: @chat %>
+<% end %>

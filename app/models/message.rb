@@ -24,4 +24,9 @@ class Message < ApplicationRecord
   belongs_to :author, class_name: "User"
 
   validates :content, presence: true
+
+  # Individual callbacks for more control
+  after_create_commit -> { broadcast_refresh_to "zebras" }
+  after_update_commit -> { broadcast_refresh_to "zebras" }
+  after_destroy_commit -> { broadcast_refresh_to "zebras" }
 end

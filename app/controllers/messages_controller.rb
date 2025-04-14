@@ -28,6 +28,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        format.turbo_stream
         format.html { redirect_to chat_url(@message.chat) }
         format.json { render :show, status: :created, location: @message }
       else
