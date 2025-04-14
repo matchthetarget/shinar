@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :chats, param: :token do
     resources :messages
     member do
-      get "qr", action: :qrcode
+      get "qr"
     end
   end
   resources :users

@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show edit update destroy qrcode ]
+  before_action :set_chat, only: %i[ show edit update destroy qr ]
 
   # GET /chats or /chats.json
   def index
@@ -57,8 +57,8 @@ class ChatsController < ApplicationController
     end
   end
 
-  # GET /chats/:token/qrcode
-  def qrcode
+  # GET /chats/:token/qr
+  def qr
     require "rqrcode"
 
     chat_url = url_for(@chat)
