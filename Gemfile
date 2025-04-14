@@ -1,102 +1,77 @@
 source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+# Rails core
 gem "rails", "~> 8.0.2"
-# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
-# Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
-# Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+gem "propshaft"                    # Modern asset pipeline for Rails
+gem "pg", "~> 1.1"                 # PostgreSQL database
+gem "puma", ">= 5.0"               # Web server
+gem "bootsnap", require: false     # Reduces boot times through caching
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+# Frontend
+gem "importmap-rails"              # JavaScript with ESM import maps
+gem "turbo-rails"                  # Hotwire's SPA-like page accelerator
+gem "stimulus-rails"               # Hotwire's modest JavaScript framework
+gem "jbuilder"                     # Build JSON APIs
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+# Rails services
+gem "solid_cache"                  # Database-backed adapter for Rails.cache
+gem "solid_queue"                  # Database-backed adapter for Active Job
+gem "solid_cable"                  # Database-backed adapter for Action Cable
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
+# DevOps
+gem "kamal", require: false        # Docker container deployment
+gem "thruster", require: false     # HTTP asset caching/compression for Puma
 
-# Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+# Windows-specific
+gem "tzinfo-data", platforms: %i[windows jruby]
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
+# Feature gems
+gem "kramdown"                     # Markdown parser
+gem "rqrcode"                      # QR code generation
+gem "active_link_to"               # Helper for creating active links
+gem "simple_form"                  # Simplified form builder
+gem "devise"                       # Authentication
+gem "pundit"                       # Authorization
+gem "ransack"                      # Search and filtering
+gem "strip_attributes"             # Remove whitespace from model attributes
+gem "validate_url"                 # URL validation
+gem "carrierwave"                  # File uploads
+gem "cloudinary"                   # Cloud image storage
+gem "kaminari"                     # Pagination
+gem "groupdate"                    # Group data by time periods
 
-# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
-gem "thruster", require: false
-
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+# Development and testing utilities
+gem "awesome_print"                # Pretty print Ruby objects
+gem "dotenv"                       # Load environment variables from .env
+gem "faker"                        # Generate fake data
+gem "htmlbeautifier"               # Format HTML
+gem "http"                         # HTTP client
+gem "table_print"                  # Format ActiveRecord for console
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
-
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
+  gem "brakeman", require: false             # Security vulnerability scanner
+  gem "rubocop-rails-omakase", require: false # Ruby code style
+  gem "rspec-rails", "~> 7.1.1"              # Testing framework
+  gem "grade_runner", "~> 0.0.13"            # Automated grading
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
-end
-
-gem "kramdown"
-gem "rqrcode"
-# Additional gems for AppDev 2
-gem "active_link_to"
-gem "awesome_print"
-gem "dotenv"
-gem "faker"
-gem "htmlbeautifier"
-gem "http"
-gem "table_print"
-gem "simple_form"
-gem "devise"
-gem "pundit"
-gem "ransack"
-gem "strip_attributes"
-gem "validate_url"
-gem "carrierwave"
-gem "cloudinary"
-gem "kaminari"
-gem "groupdate"
-
-group :development do
-  gem "annotaterb"
-  gem "better_errors"
-  gem "binding_of_caller"
-  gem "pry-rails"
-  gem "rails-erd"
-  gem "rufo"
-end
-
-group :development, :test do
-  gem "rspec-rails", "~> 7.1.1"
-  gem "grade_runner", "~> 0.0.13"
+  gem "web-console"                # Console on exception pages
+  gem "annotaterb"                 # Schema annotation for models
+  gem "better_errors"              # Improved error pages
+  gem "binding_of_caller"          # Interactive console on error pages
+  gem "pry-rails"                  # Alternative console
+  gem "rails-erd"                  # Generate ER diagrams
+  gem "rufo"                       # Ruby code formatter
 end
 
 group :test do
-  gem "shoulda-matchers", "~> 6.4"
-  gem "rspec-html-matchers"
-  gem "rails-controller-testing"
-  gem "webmock"
-  gem "capybara"
-  gem "selenium-webdriver", "~> 4.11.0"
-  gem "webdrivers"
+  gem "shoulda-matchers", "~> 6.4"   # Additional matchers for RSpec
+  gem "rspec-html-matchers"          # Matchers for HTML testing
+  gem "rails-controller-testing"     # Testing for controllers
+  gem "webmock"                      # Mock HTTP requests
+  gem "capybara"                     # Browser testing
+  gem "selenium-webdriver", "~> 4.11.0" # Browser automation
+  gem "webdrivers"                   # Browser drivers
 end
