@@ -3,7 +3,8 @@ class ChatsController < ApplicationController
 
   # GET /chats or /chats.json
   def index
-    @chats = current_user.chats.order(updated_at: :desc)
+    # @chats = current_user.chats.order(updated_at: :desc)
+    @chats = Chat.all.order(updated_at: :desc)
   end
 
   # GET /chats/1 or /chats/1.json
