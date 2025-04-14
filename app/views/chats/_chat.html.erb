@@ -14,7 +14,7 @@
       <% if chat.most_recent_message.present? %>
         <%= smart_timestamp(chat.most_recent_message.created_at) %>
       <% else %>
-        <%= smart_timestamp(chat.created_at) %>
+        <%= smart_timestamp(chat.updated_at) %>
       <% end %>
     </small>
   </div>
