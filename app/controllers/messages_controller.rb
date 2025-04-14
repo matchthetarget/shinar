@@ -18,6 +18,7 @@ class MessagesController < ApplicationController
 
   # GET /chats/:chat_token/messages/:id/edit
   def edit
+    authorize @message
   end
 
   # POST /chats/:chat_token/messages or /chats/:chat_token/messages.json
@@ -38,6 +39,8 @@ class MessagesController < ApplicationController
 
   # PATCH/PUT /messages/1 or /messages/1.json
   def update
+    authorize @message
+
     respond_to do |format|
       if @message.update(message_params)
         format.html { redirect_to chat_url(@chat), notice: "Message updated." }
@@ -51,6 +54,7 @@ class MessagesController < ApplicationController
 
   # DELETE /messages/1 or /messages/1.json
   def destroy
+    authorize @message
     @message.destroy!
 
     respond_to do |format|
