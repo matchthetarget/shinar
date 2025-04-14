@@ -3,13 +3,13 @@
     <div class="fw-medium mb-1"><%= chat.subject %></div>
     <div class="text-body-secondary text-truncate">
       <% if chat.most_recent_message.present? %>
-        <small><%= truncate(chat.most_recent_message.content, length: 50) %></small>
+        <small><%= truncate(chat.most_recent_message.content, length: 100) %></small>
       <% else %>
         <small>No messages yet</small>
       <% end %>
     </div>
   </div>
-  <div class="text-body-secondary align-self-start ms-3">
+  <div class="text-body-secondary align-self-start ms-3 text-nowrap">
     <small>
       <% if chat.most_recent_message.present? %>
         <%= smart_timestamp(chat.most_recent_message.created_at) %>
