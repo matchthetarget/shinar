@@ -9,6 +9,11 @@ export default class extends Controller {
     if (this.hasTextareaTarget) {
       autosize(this.textareaTarget)
       this.textareaTarget.addEventListener("keydown", this.handleKeyDown.bind(this))
+      
+      // Force an update after connection to ensure proper sizing
+      setTimeout(() => {
+        autosize.update(this.textareaTarget)
+      }, 100)
     }
   }
 
@@ -34,7 +39,12 @@ export default class extends Controller {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
       this.element.requestSubmit()
+    } else if (event.key === "Enter" && event.shiftKey) {
+      // Shift+Enter pressed, allow default behavior (new line)
+      // Force update autosize after new line is added
+      setTimeout(() => {
+        autosize.update(this.textareaTarget)
+      }, 0)
     }
-    // If Shift+Enter is pressed, allow default behavior (new line)
   }
 }
