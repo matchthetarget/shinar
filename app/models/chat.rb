@@ -32,7 +32,7 @@ class Chat < ApplicationRecord
   def update_subject
     self.update(subject: "Chat ##{id}") if subject == "pending"
   end
-  
+
   def add_creator_as_member
     chat_users.create(user: creator) unless users.include?(creator)
   end

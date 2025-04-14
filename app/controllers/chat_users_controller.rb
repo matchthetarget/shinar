@@ -25,7 +25,7 @@ class ChatUsersController < ApplicationController
 
     respond_to do |format|
       if @chat_user.save
-        format.html { redirect_to @chat_user, notice: "Chat user was successfully created." }
+        format.html { redirect_to @chat_user, notice: "User added to chat." }
         format.json { render :show, status: :created, location: @chat_user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ChatUsersController < ApplicationController
   def update
     respond_to do |format|
       if @chat_user.update(chat_user_params)
-        format.html { redirect_to @chat_user, notice: "Chat user was successfully updated." }
+        format.html { redirect_to @chat_user, notice: "Chat member updated." }
         format.json { render :show, status: :ok, location: @chat_user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ChatUsersController < ApplicationController
     @chat_user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to chat_users_path, status: :see_other, notice: "Chat user was successfully destroyed." }
+      format.html { redirect_to chat_users_path, status: :see_other, notice: "User removed from chat." }
       format.json { head :no_content }
     end
   end

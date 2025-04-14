@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :chat_users
   resources :chats, param: :token do
     resources :messages
+    member do
+      get "qr", action: :qrcode
+    end
   end
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

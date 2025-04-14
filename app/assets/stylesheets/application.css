@@ -8,3 +8,86 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Markdown styling for message content */
+.message-content {
+  line-height: 1.5;
+}
+
+.message-content h1, 
+.message-content h2, 
+.message-content h3, 
+.message-content h4, 
+.message-content h5, 
+.message-content h6 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.message-content h1 { font-size: 1.5rem; }
+.message-content h2 { font-size: 1.4rem; }
+.message-content h3 { font-size: 1.3rem; }
+.message-content h4 { font-size: 1.2rem; }
+.message-content h5 { font-size: 1.1rem; }
+.message-content h6 { font-size: 1rem; }
+
+.message-content p {
+  margin-bottom: 0.5rem;
+}
+
+.message-content ul, 
+.message-content ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.message-content blockquote {
+  border-left: 3px solid #ccc;
+  padding-left: 0.75rem;
+  margin-left: 0.5rem;
+  color: #6c757d;
+}
+
+.message-content code {
+  font-family: monospace;
+  background-color: #f8f9fa;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.2rem;
+  font-size: 0.875em;
+}
+
+.message-content pre {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.message-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.message-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.3rem;
+}
+
+.message-content a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.message-content a:hover {
+  text-decoration: underline;
+}
+
+.message-content hr {
+  margin: 1rem 0;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

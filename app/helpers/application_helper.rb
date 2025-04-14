@@ -22,4 +22,10 @@ module ApplicationHelper
       datetime.strftime("%b %-d %Y")
     end
   end
+
+  def markdown_render(text)
+    return "" if text.blank?
+
+    Kramdown::Document.new(text).to_html.html_safe
+  end
 end

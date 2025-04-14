@@ -1,6 +1,6 @@
-<div id="<%= dom_id chat %>" class="d-flex justify-content-between w-100">
+<div id="<%= dom_id chat %>" class="d-flex justify-content-between w-100 py-2">
   <div class="overflow-hidden">
-    <div class="fw-medium"><%= chat.subject %></div>
+    <div class="fw-medium mb-1"><%= chat.subject %></div>
     <div class="text-body-secondary text-truncate">
       <% if chat.most_recent_message.present? %>
         <small><%= truncate(chat.most_recent_message.content, length: 50) %></small>
@@ -9,7 +9,7 @@
       <% end %>
     </div>
   </div>
-  <div class="text-body-secondary align-self-start ms-2">
+  <div class="text-body-secondary align-self-start ms-3">
     <small>
       <% if chat.most_recent_message.present? %>
         <%= smart_timestamp(chat.most_recent_message.created_at) %>

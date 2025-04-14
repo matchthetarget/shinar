@@ -1,15 +1,23 @@
-<%= form_with(model: [chat, message], data: { controller: "autofocus" }) do |form| %>
-  <div class="mb-3">
-    <%= form.label :content, class: "visually-hidden" %>
-    <%= form.text_field :content, class: "form-control #{'is-invalid' if message.errors[:content].any?}", autofocus: true %>
-    <% if message.errors[:content].any? %>
-      <div <%# class="invalid-feedback" %> class="text-danger">
-        <%= message.errors[:content].first %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.submit class: "btn btn-primary" %>
+<%= form_with(model: [chat, message], data: { controller: "autofocus autogrow", autogrow_submit_on_enter_value: true }) do |form| %>
+  <div class="d-flex align-items-end">
+    <div class="flex-grow-1 me-3">
+      <%= form.label :content, class: "visually-hidden" %>
+      <%= form.text_area :content,
+                       class: "form-control #{'is-invalid' if message.errors[:content].any?}",
+                       autofocus: true,
+                       data: {
+                         autogrow_target: "textarea",
+                         action: "input->autogrow#update"
+                       },
+                       rows: 1 %>
+      <% if message.errors[:content].any? %>
+        <div class="text-danger">
+          <%= message.errors[:content].first %>
+        </div>
+      <% end %>
+    </div>
+    <button type="submit" class="btn btn-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 40px; height: 40px; padding: 0;">
+      <i class="fas fa-arrow-up"></i>
+    </button>
   </div>
 <% end %>

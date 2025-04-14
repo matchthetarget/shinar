@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show edit update destroy ]
+  before_action :set_chat, only: %i[ show edit update destroy qrcode ]
 
   # GET /chats or /chats.json
   def index
@@ -25,7 +25,7 @@ class ChatsController < ApplicationController
 
     respond_to do |format|
       if @chat.save
-        format.html { redirect_to @chat, notice: "Chat was successfully created." }
+        format.html { redirect_to @chat, notice: "New chat created!" }
         format.json { render :show, status: :created, location: @chat }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ChatsController < ApplicationController
   def update
     respond_to do |format|
       if @chat.update(chat_params)
-        format.html { redirect_to @chat, notice: "Chat was successfully updated." }
+        format.html { redirect_to @chat, notice: "Chat updated." }
         format.json { render :show, status: :ok, location: @chat }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,8 +52,24 @@ class ChatsController < ApplicationController
     @chat.destroy!
 
     respond_to do |format|
-      format.html { redirect_to chats_path, status: :see_other, notice: "Chat was successfully destroyed." }
+      format.html { redirect_to chats_path, status: :see_other, notice: "Chat deleted." }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /chats/:token/qrcode
+  def qrcode
+    require "rqrcode"
+
+    chat_url = url_for(@chat)
+    @qr = RQRCode::QRCode.new(chat_url)
+
+    respond_to do |format|
+      format.html
+      format.svg { render inline: @qr.as_svg(viewbox: true) }
+      format.png do
+        send_data @qr.as_png(size: 300).to_s, type: "image/png", disposition: "inline"
+      end
     end
   end
 

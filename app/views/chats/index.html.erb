@@ -6,9 +6,8 @@
       <li class="breadcrumb-item active" aria-current="page">Chats</li>
     </ol>
   </nav>
-  
-  <%= button_to chats_path, method: :post, class: "bg-transparent border-0 p-0" do %>
-    <i class="fas fa-edit fa-lg text-primary"></i>
+  <%= button_to chats_path, method: :post, class: "btn btn-primary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;" do %>
+    <i class="fas fa-plus"></i>
   <% end %>
 </div>
 

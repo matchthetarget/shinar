@@ -1,9 +1,9 @@
-<div id="<%= dom_id message %>" class="list-group-item">
-  <div class="d-flex justify-content-between">
+<div id="<%= dom_id message %>" class="list-group-item py-3">
+  <div class="d-flex justify-content-between mb-2">
     <strong class="text-nowrap text-secondary"><%= message.author.name %></strong>
-    <small class="text-muted"><%= message.created_at.strftime("%l:%M%p").strip.downcase %></small>
+    <small class="text-muted ms-3"><%= message.created_at.strftime("%l:%M%p").strip.downcase %></small>
   </div>
-  <div>
-    <%= message.content %>
+  <div class="message-content">
+    <%= markdown_render(message.content) %>
   </div>
 </div>

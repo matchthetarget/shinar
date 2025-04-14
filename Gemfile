@@ -56,6 +56,7 @@ group :development do
   gem "web-console"
 end
 
+gem "kramdown"
 # Additional gems for AppDev 2
 gem "active_link_to"
 gem "awesome_print"
