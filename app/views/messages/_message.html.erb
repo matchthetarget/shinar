@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center">
       <% if policy(message).edit? %>
         <div class="me-2">
-          <%= link_to edit_chat_message_path(message.chat, message), class: "text-muted me-2 text-decoration-none", title: "Edit" do %>
+          <%= link_to edit_chat_message_path(message.chat, message), class: "text-muted me-2 text-decoration-none", title: "Edit", data: { turbo_stream: true } do %>
             <i class="fas fa-edit"></i>
           <% end %>
           <%= link_to chat_message_path(message.chat, message), class: "text-muted text-decoration-none", title: "Delete", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>

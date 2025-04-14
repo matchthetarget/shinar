@@ -19,6 +19,11 @@ class MessagesController < ApplicationController
   # GET /chats/:chat_token/messages/:id/edit
   def edit
     authorize @message
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # POST /chats/:chat_token/messages or /chats/:chat_token/messages.json
@@ -46,6 +51,7 @@ class MessagesController < ApplicationController
       if @message.update(message_params)
         format.html { redirect_to chat_url(@chat), notice: "Message updated." }
         format.json { render :show, status: :ok, location: chat_url(@chat) }
+        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }

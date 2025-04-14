@@ -1,0 +1,5 @@
+<div id="<%= dom_id(chat, :new_message_form) %>" class="list-group-item py-3">
+  <div data-turbo-permanent="true">
+    <%= render "messages/form", chat: chat, message: chat.messages.build %>
+  </div>
+</div>
