@@ -24,7 +24,7 @@
     <p>Scan this QR code to join the chat</p>
     <%= @qr.as_svg(module_size: 5, viewbox: true).html_safe %>
     <div class="mt-3">
-      <p><small>Chat URL: <%= url_for(@chat) %></small></p>
+      <p><small>Chat URL: <%= chat_url(@chat) %></small></p>
     </div>
   </div>
 </div>
