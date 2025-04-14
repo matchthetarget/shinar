@@ -8,6 +8,7 @@
 
 <div class="d-flex gap-2 mb-4">
   <%= link_to "Edit this chat", edit_chat_path(@chat), class: "btn btn-sm btn-outline-primary" %>
+  <%= link_to "QR Code", qr_chat_path(@chat), class: "btn btn-sm btn-outline-secondary", data: { turbo_frame: "modal" } %>
   <%= button_to "Destroy this chat", @chat, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
 </div>
 
