@@ -47,6 +47,7 @@ gem "faker"                        # Generate fake data
 gem "htmlbeautifier"               # Format HTML
 gem "http"                         # HTTP client
 gem "table_print"                  # Format ActiveRecord for console
+gem "haikunator"
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
