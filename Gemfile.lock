@@ -186,6 +186,7 @@ GEM
       zip
     groupdate (6.5.1)
       activesupport (>= 7)
+    haikunator (1.1.1)
     hashdiff (1.1.2)
     htmlbeautifier (1.4.3)
     http (5.2.0)
@@ -573,6 +574,7 @@ DEPENDENCIES
   faker
   grade_runner (~> 0.0.13)
   groupdate
+  haikunator
   htmlbeautifier
   http
   importmap-rails

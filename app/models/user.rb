@@ -13,11 +13,11 @@ class User < ApplicationRecord
   has_many :chats, through: :chat_users, source: :chat
   has_many :messages, foreign_key: "author_id", dependent: :destroy
 
-  after_create :update_name
+  after_create :update_name, if: -> { name.blank? }
 
   validates :name, presence: true
 
   def update_name
-    self.update name: "User ##{id}"
+    self.update name: Haikunator.haikunate(0)
   end
 end
