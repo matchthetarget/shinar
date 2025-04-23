@@ -11,11 +11,13 @@
     <%= link_to chats_path, class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;" do %>
       <i class="fas fa-arrow-left"></i>
     <% end %>
+
     <%= link_to edit_chat_path(@chat), class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;" do %>
-      <i class="fas fa-edit"></i>
+      <i class="fa-regular fa-pen-to-square"></i>
     <% end %>
+
     <%= button_to @chat, method: :delete, class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;", form: { data: { turbo_confirm: "Are you sure?" } } do %>
-      <i class="fas fa-trash"></i>
+      <i class="fa-regular fa-trash-can"></i>
     <% end %>
   </div>
 </div>
