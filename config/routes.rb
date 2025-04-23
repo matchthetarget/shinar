@@ -21,3 +21,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
+
+
+curl -H "Origin: localhost:3000" \
+  -H "Access-Control-Request-Method: GET" \
+  -H "Access-Control-Request-Headers: X-Requested-With" \
+  -X OPTIONS --verbose \
+  https://animated-space-rotary-phone-974x6wwgwrvfgrq-3000.app.github.dev/
