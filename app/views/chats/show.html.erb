@@ -1,7 +1,9 @@
 <%= turbo_stream_from @chat %>
 
+<% content_for :title, "#{@chat.subject} | Shinar" %>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <nav aria-label="breadcrumb" class="mb-0">
+  <nav aria-label="breadcrumb" class="mb-0 fs-4">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item"><a href="<%= chats_path %>">Chats</a></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @chat.subject %></li>
