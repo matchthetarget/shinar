@@ -40,13 +40,15 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        if session[:return_to] && session[:return_to].include?(edit_user_path(@user))
-          # User came from edit page, use stored path from before edit
+        if request.referrer&.include?(edit_user_path(@user))
+          # Coming from edit page, use stored location
           redirect_path = session[:return_to] || root_path
         else
-          # User came from elsewhere (like language dropdown), redirect back
-          redirect_path = request.referer || root_path
+          # Coming from elsewhere (like language dropdown), redirect back to referrer
+          redirect_path = request.referrer || root_path
         end
+
+        # Clear stored location
         session.delete(:return_to)
 
         format.html { redirect_to redirect_path, notice: "Your profile has been updated." }
@@ -85,7 +87,7 @@ class UsersController < ApplicationController
 
     def store_location
       # Store the HTTP_REFERER for redirect after update
-      if request.referer && request.referer != request.url
+      if request.referer && !request.referer.include?(edit_user_path(@user))
         session[:return_to] = request.referer
       end
     end
