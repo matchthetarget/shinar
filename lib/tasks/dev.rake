@@ -8,11 +8,18 @@ task({ sample_data: :environment }) do
     puts "Creating sample data..."
 
 
+    # Get all languages for assignments
+    languages = Language.all.to_a
+    english = Language.find_by(name_english: "English")
+    
     # Create 25 users
     users = []
     25.times do |i|
       name = Haikunator.haikunate(0)
-      users << User.create!(name: name)
+      users << User.create!(
+        name: name,
+        preferred_language: languages.sample
+      )
     end
 
     # Create Tokyo chat
@@ -135,6 +142,7 @@ task({ sample_data: :environment }) do
           chat: chat_data[:chat],
           author: message[:author],
           content: message[:content],
+          original_language: message[:author].preferred_language,
           created_at: message_time,
           updated_at: message_time
         )
