@@ -40,7 +40,13 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        redirect_path = session[:return_to] || root_path
+        if session[:return_to] && session[:return_to].include?(edit_user_path(@user))
+          # User came from edit page, use stored path from before edit
+          redirect_path = session[:return_to] || root_path
+        else
+          # User came from elsewhere (like language dropdown), redirect back
+          redirect_path = request.referer || root_path
+        end
         session.delete(:return_to)
 
         format.html { redirect_to redirect_path, notice: "Your profile has been updated." }
