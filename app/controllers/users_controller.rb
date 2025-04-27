@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :store_location, only: [ :edit ]
+  before_action :authorize_user, only: [ :edit, :update, :destroy ]
 
   # GET /users or /users.json
   def index
@@ -38,7 +40,10 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: "Your profile has been updated." }
+        redirect_path = session[:return_to] || root_path
+        session.delete(:return_to)
+
+        format.html { redirect_to redirect_path, notice: "Your profile has been updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +57,7 @@ class UsersController < ApplicationController
     @user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "Account deleted." }
+      format.html { redirect_to root_path, status: :see_other, notice: "Account deleted." }
       format.json { head :no_content }
     end
   end
@@ -66,5 +71,16 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.expect(user: [ :name ])
+    end
+
+    def authorize_user
+      authorize @user
+    end
+
+    def store_location
+      # Store the HTTP_REFERER for redirect after update
+      if request.referer && request.referer != request.url
+        session[:return_to] = request.referer
+      end
     end
 end
