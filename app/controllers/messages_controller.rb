@@ -30,6 +30,7 @@ class MessagesController < ApplicationController
   def create
     @message = @chat.messages.build(message_params)
     @message.author = current_user
+    @message.original_language = current_user.preferred_language
 
     respond_to do |format|
       if @message.save

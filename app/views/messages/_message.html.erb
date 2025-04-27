@@ -22,6 +22,6 @@
   </div>
 
   <div class="message-content lh-lg">
-    <%= markdown_render(message.content) %>
+    <%= markdown_render(current_user.view_message(message)) %>
   </div>
 </div>
