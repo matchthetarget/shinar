@@ -38,6 +38,11 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    # Mark name as customized if it's being changed directly by the user
+    if params[:user][:name].present? && params[:user][:name] != @user.name
+      params[:user][:name_customized] = true
+    end
+
     respond_to do |format|
       if @user.update(user_params)
         if request.referrer&.include?(edit_user_path(@user))
@@ -84,7 +89,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :name, :preferred_language_id ])
+      params.expect(user: [ :name, :preferred_language_id, :name_customized ])
     end
 
     def authorize_user
