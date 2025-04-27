@@ -19,7 +19,7 @@
                   <%= f.label :preferred_language_id, "Select language", class: "visually-hidden", for: "navbar_preferred_language" %>
                   <%= f.select :preferred_language_id, 
                     Language.all.order(:name_english).map { |lang| 
-                      ["#{lang.icon} #{lang.name} (#{lang.name_english})", lang.id]
+                      ["#{lang.name} (#{lang.name_english}) #{lang.icon}", lang.id]
                     },
                     { selected: current_user.preferred_language_id },
                     { 
