@@ -10,8 +10,8 @@
         </a>
         <div>
           <% if current_user.present? %>
-            <%= link_to edit_user_path(current_user), class: "text-decoration-none" do %>
-              <i class="fas fa-user me-1"></i> Profile
+            <%= link_to edit_user_path(current_user), class: "text-decoration-none text-secondary" do %>
+              <i class="fa-regular fa-user me-1"></i> Profile
             <% end %>
           <% end %>
         </div>
