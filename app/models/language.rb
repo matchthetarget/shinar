@@ -6,6 +6,7 @@
 #  icon         :string           not null
 #  name         :string           not null
 #  name_english :string           not null
+#  you          :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

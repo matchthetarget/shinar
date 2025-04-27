@@ -12,6 +12,7 @@ languages_data.each do |language_data|
   Language.find_or_create_by!(name: language_data['name']) do |language|
     language.name_english = language_data['name_in_english']
     language.icon = language_data['icon']
+    language.you = language_data['you']
   end
 end
 
