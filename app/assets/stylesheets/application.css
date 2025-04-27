@@ -16,3 +16,17 @@
   padding-left: 0.75rem;
   color: #6c757d;
 }
+
+/* Make markdown tables responsive */
+.message-content table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.message-content table th,
+.message-content table td {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+}
