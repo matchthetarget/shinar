@@ -18,20 +18,25 @@
 #
 class User < ApplicationRecord
   belongs_to :preferred_language, class_name: "Language"
-  
+
   has_many :created_chats, class_name: "Chat", foreign_key: "creator_id", dependent: :destroy
   has_many :chat_users, dependent: :destroy
   has_many :chats, through: :chat_users, source: :chat
   has_many :messages, foreign_key: "author_id", dependent: :destroy
 
   before_create :set_random_name
+  before_create :set_default_language
 
   validates :name, presence: true
 
   def set_random_name
     self.name = Haikunator.haikunate(0)
   end
-  
+
+  def set_default_language
+    self.preferred_language ||= Language.find_by(name_english: "English")
+  end
+
   # Get the content of a message in the user's preferred language
   def view_message(message)
     message.content_in(preferred_language)
