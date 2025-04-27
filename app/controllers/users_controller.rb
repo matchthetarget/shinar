@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   # DELETE /users/1/sign_out
   def sign_out
     cookies.delete(:user_id, signed: true)
-    redirect_to root_path, status: :see_other, notice: "You have been signed out."
+    redirect_to root_path, status: :see_other, alert: "Signed out of #{current_user.name}."
   end
 
   private

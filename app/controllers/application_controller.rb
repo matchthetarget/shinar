@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
         value: @_current_user.id,
         expires: 20.years.from_now
       }
+
+      flash.now[:notice] = "Signed in as #{@_current_user.name}."
     end
   end
 
