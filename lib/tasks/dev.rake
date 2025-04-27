@@ -105,18 +105,30 @@ task({ sample_data: :environment }) do
       {author: visitor, content: "Thanks so much for all the tips! I'm so excited to experience New York."}
     ]
 
-    # Create messages with realistic timestamps
+    # Create messages with realistic timestamps spread across multiple days
     [
-      {chat: tokyo_chat, conversation: tokyo_convo},
-      {chat: paris_chat, conversation: paris_convo},
-      {chat: nyc_chat, conversation: nyc_convo}
+      {chat: tokyo_chat, conversation: tokyo_convo, start_days_ago: 7},
+      {chat: paris_chat, conversation: paris_convo, start_days_ago: 5},
+      {chat: nyc_chat, conversation: nyc_convo, start_days_ago: 3}
     ].each do |chat_data|
-      base_time = 3.days.ago
+      base_time = chat_data[:start_days_ago].days.ago
+      messages_per_day = (chat_data[:conversation].length / 3.0).ceil
+      day_cutoffs = [messages_per_day, messages_per_day * 2]
 
       chat_data[:conversation].each_with_index do |message, index|
-        # Create realistic time progression - messages get further apart as conversation progresses
-        time_gap = index < 5 ? rand(5..10) : rand(15..40)
-        message_time = base_time + time_gap.minutes
+        # Spread messages across 3+ days
+        if index == 0
+          # First message starts at beginning of day
+          time_gap = rand(0..60).minutes
+        elsif day_cutoffs.include?(index)
+          # Start a new day at these message indexes
+          time_gap = 1.day - base_time.seconds_since_midnight + rand(60..180).minutes
+        else
+          # Normal time progression within the same day
+          time_gap = index < 5 ? rand(5..20).minutes : rand(15..60).minutes
+        end
+        
+        message_time = base_time + time_gap
         base_time = message_time
 
         Message.create!(
@@ -127,7 +139,7 @@ task({ sample_data: :environment }) do
           updated_at: message_time
         )
       end
-      puts "Created chat: #{chat_data[:chat].subject} with 20 messages"
+      puts "Created chat: #{chat_data[:chat].subject} with #{chat_data[:conversation].length} messages across 3 days"
     end
 
     puts "Sample data created successfully!"
