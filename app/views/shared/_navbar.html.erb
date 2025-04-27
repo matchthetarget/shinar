@@ -12,7 +12,7 @@
         <% if current_user.present? %>
           <div class="dropdown mx-auto" data-controller="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle px-3 py-2" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.1rem;">
-              <span class="me-1" style="font-size: 1.2rem;"><%= current_user.preferred_language.icon %></span> <%= current_user.preferred_language.name_english %>
+              <span class="me-1" style="font-size: 1.2rem;"><%= current_user.preferred_language.icon %></span> <%= current_user.preferred_language.name %> (<%= current_user.preferred_language.name_english %>)
             </button>
             <ul class="dropdown-menu" aria-labelledby="languageDropdown" style="max-height: 300px; overflow-y: auto;">
               <% Language.all.order(:name_english).each do |language| %>
@@ -20,7 +20,7 @@
                   <%= form_with(model: current_user, html: { class: "dropdown-item p-0" }) do |f| %>
                     <%= f.hidden_field :preferred_language_id, value: language.id %>
                     <button type="submit" class="dropdown-item <%= 'active' if current_user.preferred_language_id == language.id %>">
-                      <%= language.icon %> <%= language.name_english %> (<%= language.name %>)
+                      <%= language.icon %> <%= language.name %> (<%= language.name_english %>)
                     </button>
                   <% end %>
                 </li>
