@@ -26,6 +26,6 @@ module ApplicationHelper
   def markdown_render(text)
     return "" if text.blank?
 
-    Kramdown::Document.new(text).to_html.html_safe
+    Kramdown::Document.new(text, input: "GFM", syntax_highlighter: nil, escape_html: true).to_html.html_safe
   end
 end

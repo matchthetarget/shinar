@@ -36,6 +36,7 @@ gem "groupdate"                    # Group data by time periods
 gem "haikunator"                   # Generate attractive random usernames
 gem "kaminari"                     # Pagination
 gem "kramdown"                     # Markdown parser
+gem "kramdown-parser-gfm"          # GitHub Flavored Markdown parser
 gem "pundit"                       # Authorization
 gem "ransack"                      # Search and filtering
 gem "rqrcode"                      # QR code generation
