@@ -2,7 +2,7 @@
   <%= link_to edit_user_path(current_user), class: "list-group-item list-group-item-action list-group-item-primary" do %>
     <div class="d-flex align-items-center">
       <div class="flex-grow-1">
-        <h6 class="mb-0"><%= chat_user.user.name %></h6>
+        <h6 class="mb-0"><%= chat_user.user.name %> (<%= current_user.preferred_language.you %>)</h6>
         <small class="text-muted">
           <%= chat_user.user.preferred_language.name %>
           <% if chat_user.user.preferred_language.name != chat_user.user.preferred_language.name_english %>
