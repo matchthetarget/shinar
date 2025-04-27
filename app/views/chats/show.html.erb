@@ -37,7 +37,20 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-lg-9">
+  <!-- Mobile-first order: Chat members first on small screens -->
+  <div class="col-md-4 col-lg-3 order-md-2 mb-4 mb-md-0">
+    <div class="position-sticky" style="top: 1rem;">
+      <div class="list-group mb-0">
+        <div class="list-group-item text-center bg-light text-nowrap">
+          Chat members
+        </div>
+        <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Chat messages second on mobile, first on larger screens -->
+  <div class="col-md-8 col-lg-9 order-md-1 mb-5">
     <div class="list-group mb-0">
       <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
       
@@ -61,17 +74,6 @@
       <% end %>
 
       <%= render "messages/new_form", chat: @chat %>
-    </div>
-  </div>
-  
-  <div class="col-md-4 col-lg-3">
-    <div class="position-sticky" style="top: 1rem;">
-      <div class="list-group mb-0">
-        <div class="list-group-item text-center bg-light text-nowrap">
-          Chat members
-        </div>
-        <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
-      </div>
     </div>
   </div>
 </div>
