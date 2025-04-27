@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :messages, foreign_key: "author_id", dependent: :destroy
 
   before_create :set_random_name
-  before_create :set_default_language
+  before_validation :set_default_language
 
   validates :name, presence: true
 
