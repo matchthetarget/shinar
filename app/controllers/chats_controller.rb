@@ -3,8 +3,11 @@ class ChatsController < ApplicationController
 
   # GET /chats or /chats.json
   def index
-    # @chats = current_user.chats.order(updated_at: :desc)
-    @chats = Chat.all.order(updated_at: :desc)
+    if Rails.env.production?
+      @chats = policy_scope(Chat).order(updated_at: :desc)
+    else
+      @chats = Chat.all.order(updated_at: :desc)
+    end
   end
 
   # GET /chats/1 or /chats/1.json
