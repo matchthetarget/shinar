@@ -26,6 +26,10 @@ module ApplicationHelper
   def markdown_render(text)
     return "" if text.blank?
 
-    Kramdown::Document.new(text, input: "GFM", syntax_highlighter: nil, escape_html: true).to_html.html_safe
+    # First sanitize the HTML to remove potentially dangerous tags
+    sanitized_text = ActionController::Base.helpers.sanitize(text)
+
+    # Then render as markdown
+    Kramdown::Document.new(sanitized_text, input: "GFM", syntax_highlighter: nil).to_html.html_safe
   end
 end
