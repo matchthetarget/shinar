@@ -21,6 +21,7 @@ gem "solid_queue"                  # Database-backed adapter for Active Job
 # DevOps
 gem "kamal", require: false        # Docker container deployment
 gem "thruster", require: false     # HTTP asset caching/compression for Puma
+gem "rollbar"
 
 # Windows-specific
 gem "tzinfo-data", platforms: %i[windows jruby]

@@ -384,6 +384,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
+    rollbar (3.6.2)
     rouge (4.5.1)
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
@@ -582,6 +583,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   ransack
+  rollbar
   rqrcode
   rspec-html-matchers
   rspec-rails (~> 7.1.1)
