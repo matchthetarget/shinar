@@ -26,10 +26,13 @@ module ApplicationHelper
   def markdown_render(text)
     return "" if text.blank?
 
-    # First sanitize the HTML to remove potentially dangerous tags
-    sanitized_text = ActionController::Base.helpers.sanitize(text)
+    # Escape HTML entities to display tags as text
+    escaped_text = ERB::Util.html_escape(text)
 
-    # Then render as markdown
-    Kramdown::Document.new(sanitized_text, input: "GFM", syntax_highlighter: nil).to_html.html_safe
+    # Render as markdown (but HTML is already escaped)
+    result = Kramdown::Document.new(escaped_text, input: "GFM", syntax_highlighter: nil, entity_output: :as_input).to_html
+
+    # Mark as safe since we've already escaped everything
+    result.html_safe
   end
 end
