@@ -8,8 +8,26 @@
           </div>
           <span class="fw-bold fs-4" style="font-family: 'Cinzel', serif;">Shinar</span>
         </a>
-        <div>
+        <div class="d-flex align-items-center">
           <% if current_user.present? %>
+            <div class="dropdown me-3">
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= current_user.preferred_language.icon %> <%= current_user.preferred_language.name_english %>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown" style="max-height: 300px; overflow-y: auto;">
+                <% Language.all.order(:name_english).each do |language| %>
+                  <li>
+                    <%= form_with(model: current_user, html: { class: "dropdown-item p-0" }) do |f| %>
+                      <%= f.hidden_field :preferred_language_id, value: language.id %>
+                      <button type="submit" class="dropdown-item <%= 'active' if current_user.preferred_language_id == language.id %>">
+                        <%= language.icon %> <%= language.name_english %> (<%= language.name %>)
+                      </button>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+            
             <%= link_to edit_user_path(current_user), class: "text-decoration-none text-secondary" do %>
               <i class="fa-regular fa-user me-1"></i> Profile
             <% end %>

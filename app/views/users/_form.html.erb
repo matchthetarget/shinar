@@ -16,6 +16,16 @@
   </div>
 
   <div class="mb-3">
+    <%= form.label :preferred_language_id, "Preferred Language", class: "form-label" %>
+    <%= form.collection_select :preferred_language_id, 
+                              Language.all.order(:name_english), 
+                              :id, 
+                              ->(language) { "#{language.icon} #{language.name_english} (#{language.name})" }, 
+                              {}, 
+                              { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
     <%= form.submit class: "btn btn-outline-success w-100" %>
   </div>
 <% end %>
