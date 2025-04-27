@@ -1,20 +1,24 @@
 <% content_for :title, "All Chats | Shinar" %>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex align-items-center mb-3">
+  <%= button_to chats_path, method: :post, class: "btn btn-primary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;" do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
   <nav aria-label="breadcrumb" class="mb-0 fs-4">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item active" aria-current="page">Chats</li>
     </ol>
   </nav>
-  <%= button_to chats_path, method: :post, class: "btn btn-primary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;" do %>
-    <i class="fas fa-plus"></i>
-  <% end %>
 </div>
 
-<div id="chats" class="list-group mb-0">
-  <% @chats.each do |chat| %>
-    <%= link_to chat, class: "list-group-item list-group-item-action" do %>
-      <%= render chat %>
-    <% end %>
-  <% end %>
+<div class="row">
+  <div class="col-md-8 col-lg-9">
+    <div id="chats" class="list-group mb-0">
+      <% @chats.each do |chat| %>
+        <%= link_to chat, class: "list-group-item list-group-item-action" do %>
+          <%= render chat %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
