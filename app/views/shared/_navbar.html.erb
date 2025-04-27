@@ -14,23 +14,23 @@
 
           <div class="col d-flex justify-content-center">
             <% if current_user.present? %>
-              <div class="dropdown" data-controller="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle px-3 py-2" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.1rem;">
-                  <span class="me-1" style="font-size: 1.2rem;"><%= current_user.preferred_language.icon %></span> <%= current_user.preferred_language.name %>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="languageDropdown" style="max-height: 300px; overflow-y: auto;">
-                  <% Language.all.order(:name_english).each do |language| %>
-                    <li>
-                      <%= form_with(model: current_user, html: { class: "dropdown-item p-0" }) do |f| %>
-                        <%= f.hidden_field :preferred_language_id, value: language.id %>
-                        <button type="submit" class="dropdown-item <%= 'active' if current_user.preferred_language_id == language.id %>">
-                          <%= language.icon %> <%= language.name %> (<%= language.name_english %>)
-                        </button>
-                      <% end %>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
+              <%= form_with(model: current_user, class: "d-inline", html: { id: "navbar_language_form" }) do |f| %>
+                <div>
+                  <%= f.label :preferred_language_id, "Select language", class: "visually-hidden", for: "navbar_preferred_language" %>
+                  <%= f.select :preferred_language_id, 
+                    Language.all.order(:name_english).map { |lang| 
+                      ["#{lang.icon} #{lang.name} (#{lang.name_english})", lang.id]
+                    },
+                    { selected: current_user.preferred_language_id },
+                    { 
+                      class: "form-select", 
+                      style: "width: auto", 
+                      onchange: "this.form.submit()",
+                      id: "navbar_preferred_language"
+                    }
+                  %>
+                </div>
+              <% end %>
             <% end %>
           </div>
 
