@@ -26,7 +26,7 @@ class Message < ApplicationRecord
   belongs_to :chat, touch: true
   belongs_to :author, class_name: "User"
   belongs_to :original_language, class_name: "Language"
-  
+
   has_many :translations, dependent: :destroy
 
   validates :content, presence: true
@@ -34,38 +34,38 @@ class Message < ApplicationRecord
   after_create_commit -> { broadcast_refresh_to chat }
   after_update_commit -> { broadcast_refresh_to chat }
   after_destroy_commit -> { broadcast_refresh_to chat }
-  
+
   # Get the content in the specified language, translating if necessary
   def content_in(language)
     # Return original content if the requested language is the original language
     return content if language.id == original_language_id
-    
+
     # Look for an existing translation
     translation = translations.find_by(language: language)
-    
+
     # Return the translation if it exists
     return translation.content if translation.present?
-    
+
     # No translation exists, so translate using OpenAI
     translated_text = translate(language)
-    
+
     # Store the translation for future use
     new_translation = translations.create!(
       language: language,
       content: translated_text
     )
-    
+
     new_translation.content
   end
-  
+
   private
-  
+
   def translate(target_language)
     require "http"
-    
+
     api_key = ENV["OPENAI_API_KEY"]
     url = "https://api.openai.com/v1/responses"
-    
+
     payload = {
       model: "gpt-4.1-nano",
       input: [
@@ -89,34 +89,34 @@ class Message < ApplicationRecord
                 description: "The translated text"
               }
             },
-            required: ["translation"],
+            required: [ "translation" ],
             additionalProperties: false
           },
           strict: true
         }
       }
     }
-    
+
     headers = {
       "Authorization" => "Bearer #{api_key}",
       "Content-Type" => "application/json"
     }
-    
+
     begin
       response = HTTP.headers(headers).post(url, json: payload)
-      
+
       if response.status.success?
         json_response = JSON.parse(response.body.to_s)
         output_text = json_response["output_text"]
         parsed_output = JSON.parse(output_text)
-        return parsed_output["translation"]
+        parsed_output["translation"]
       else
         Rails.logger.error("Translation API error: #{response.status} - #{response.body}")
-        return "#{content} [Translation failed: API error]"
+        "#{content} [Translation failed: API error]"
       end
     rescue => e
       Rails.logger.error("Translation error: #{e.message}")
-      return "#{content} [Translation failed: #{e.message}]"
+      "#{content} [Translation failed: #{e.message}]"
     end
   end
 end

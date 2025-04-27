@@ -18,7 +18,7 @@ class Language < ApplicationRecord
   has_many :translations, dependent: :destroy
   has_many :messages_as_original, class_name: "Message", foreign_key: "original_language_id", dependent: :restrict_with_error
   has_many :users_as_preferred, class_name: "User", foreign_key: "preferred_language_id", dependent: :restrict_with_error
-  
+
   validates :name, presence: true, uniqueness: true
   validates :icon, presence: true
   validates :name_english, presence: true, uniqueness: true
