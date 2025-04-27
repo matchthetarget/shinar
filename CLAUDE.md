@@ -17,6 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Before every commit, `bundle exec rubocop -A`.
 - Don't add Claude attribution.
 - Write a great git commit message.
+- Obey good commit message styling rules, e.g. length of subject line should be no more than 50.
 
 ## UI
 
