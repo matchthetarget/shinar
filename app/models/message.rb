@@ -46,9 +46,8 @@ class Message < ApplicationRecord
     # Return the translation if it exists
     return translation.content if translation.present?
     
-    # No translation exists, so we would create one here
-    # For now, this is just a placeholder - in a real app, this would call a translation API
-    translated_text = "#{content} [Translated from #{original_language.name} to #{language.name}]"
+    # No translation exists, so translate using OpenAI
+    translated_text = translate(language)
     
     # Store the translation for future use
     new_translation = translations.create!(
@@ -57,5 +56,67 @@ class Message < ApplicationRecord
     )
     
     new_translation.content
+  end
+  
+  private
+  
+  def translate(target_language)
+    require "http"
+    
+    api_key = ENV["OPENAI_API_KEY"]
+    url = "https://api.openai.com/v1/responses"
+    
+    payload = {
+      model: "gpt-4.1-nano",
+      input: [
+        {
+          role: "system",
+          content: "You are a translation system. Your task is to translate text from the source language to the target language, preserving meaning, tone, and formatting."
+        },
+        {
+          role: "user",
+          content: "Translate the following text from #{original_language.name} (#{original_language.name_english}) to #{target_language.name} (#{target_language.name_english}):\n\n#{content}"
+        }
+      ],
+      text: {
+        format: {
+          type: "json_schema",
+          schema: {
+            type: "object",
+            properties: {
+              translation: {
+                type: "string",
+                description: "The translated text"
+              }
+            },
+            required: ["translation"],
+            additionalProperties: false
+          },
+          strict: true
+        }
+      }
+    }
+    
+    headers = {
+      "Authorization" => "Bearer #{api_key}",
+      "Content-Type" => "application/json"
+    }
+    
+    begin
+      response = HTTP.headers(headers).post(url, json: payload)
+      
+      if response.status.success?
+        json_response = JSON.parse(response.body.to_s)
+        output_text = json_response["output_text"]
+        parsed_output = JSON.parse(output_text)
+        return parsed_output["translation"]
+      else
+        Rails.logger.error("Translation API error: #{response.status} - #{response.body}")
+        return "#{content} [Translation failed: API error]"
+      end
+    rescue => e
+      Rails.logger.error("Translation error: #{e.message}")
+      return "#{content} [Translation failed: #{e.message}]"
+    end
   end
 end
