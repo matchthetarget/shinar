@@ -25,6 +25,6 @@
   </div>
 
   <div class="message-content lh-lg">
-    <%= markdown_render(current_user.view_message(message)) %>
+    <%= markdown_render(message.in_language(current_user.preferred_language)) %>
   </div>
 </div>

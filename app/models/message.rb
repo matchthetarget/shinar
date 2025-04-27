@@ -41,26 +41,22 @@ class Message < ApplicationRecord
   end
 
   # Get the content in the specified language, translating if necessary
-  def content_in(language)
+  def in_language(language)
     # Return original content if the requested language is the original language
-    return content if language.id == original_language_id
+    if language == original_language
+      content
+    elsif translation = translations.find_by(language: language)
+      translation.content
+    else
+      translated_text = translate(language)
 
-    # Look for an existing translation
-    translation = translations.find_by(language: language)
+      new_translation = translations.create!(
+        language: language,
+        content: translated_text
+      )
 
-    # Return the translation if it exists
-    return translation.content if translation.present?
-
-    # No translation exists, so translate using OpenAI
-    translated_text = translate(language)
-
-    # Store the translation for future use
-    new_translation = translations.create!(
-      language: language,
-      content: translated_text
-    )
-
-    new_translation.content
+      new_translation.content
+    end
   end
 
   private

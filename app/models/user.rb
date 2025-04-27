@@ -36,9 +36,4 @@ class User < ApplicationRecord
   def set_default_language
     self.preferred_language ||= Language.find_by(name_english: "English")
   end
-
-  # Get the content of a message in the user's preferred language
-  def view_message(message)
-    message.content_in(preferred_language)
-  end
 end
