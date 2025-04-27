@@ -70,6 +70,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/1/sign_out
+  def sign_out
+    cookies.delete(:user_id, signed: true)
+    redirect_to root_path, status: :see_other, notice: "You have been signed out."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
