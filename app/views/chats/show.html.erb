@@ -37,27 +37,42 @@
   </div>
 </div>
 
-<div class="list-group mb-0">
-  <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
-  
-  <% if messages_by_day.empty? %>
-    <div class="list-group-item text-center bg-light text-nowrap">
-      Today
-    </div>
-  <% else %>
-    <% messages_by_day.each do |day, messages| %>
-      <div class="list-group-item text-center bg-light text-nowrap">
-        <% if day == Date.today %>
+<div class="row">
+  <div class="col-md-8 col-lg-9">
+    <div class="list-group mb-0">
+      <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
+      
+      <% if messages_by_day.empty? %>
+        <div class="list-group-item text-center bg-light text-nowrap">
           Today
-        <% elsif day == Date.yesterday %>
-          Yesterday
-        <% else %>
-          <%= day.strftime("%A, %B %-d, %Y") %>
+        </div>
+      <% else %>
+        <% messages_by_day.each do |day, messages| %>
+          <div class="list-group-item text-center bg-light text-nowrap">
+            <% if day == Date.today %>
+              Today
+            <% elsif day == Date.yesterday %>
+              Yesterday
+            <% else %>
+              <%= day.strftime("%A, %B %-d, %Y") %>
+            <% end %>
+          </div>
+          <%= render messages %>
         <% end %>
-      </div>
-      <%= render messages %>
-    <% end %>
-  <% end %>
+      <% end %>
 
-  <%= render "messages/new_form", chat: @chat %>
+      <%= render "messages/new_form", chat: @chat %>
+    </div>
+  </div>
+  
+  <div class="col-md-4 col-lg-3">
+    <div class="card position-sticky" style="top: 1rem;">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0">Chat Members</h5>
+      </div>
+      <div class="list-group list-group-flush">
+        <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -12,6 +12,9 @@ class ChatsController < ApplicationController
     unless @chat.users.include?(current_user)
       @chat.chat_users.create(user: current_user)
     end
+
+    # Eager load chat users, their users, and preferred languages to avoid N+1 queries
+    @chat_users = @chat.chat_users.includes(user: :preferred_language)
   end
 
   # GET /chats/new
