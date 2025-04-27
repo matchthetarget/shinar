@@ -158,6 +158,7 @@ task({ sample_data: :environment }) do
           chat: chat_data[:chat],
           author: message[:author],
           content: message[:content],
+          original_language: english,
           created_at: message_time,
           updated_at: message_time
         )
