@@ -29,7 +29,7 @@
     <%= form.label :timezone, "Timezone", class: "form-label" %>
     <%= form.time_zone_select :timezone, 
                              ActiveSupport::TimeZone.all.sort, 
-                             { default: user.timezone || "UTC" }, 
+                             { default: user.timezone || "America/Chicago" }, 
                              { class: "form-select" } %>
   </div>
 

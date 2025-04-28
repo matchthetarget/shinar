@@ -27,6 +27,7 @@ class User < ApplicationRecord
 
   before_create :set_random_name
   before_validation :set_default_language
+  before_validation :set_default_timezone
 
   validates :name, presence: true
 
@@ -36,5 +37,9 @@ class User < ApplicationRecord
 
   def set_default_language
     self.preferred_language ||= Language.find_by(name_english: "English")
+  end
+
+  def set_default_timezone
+    self.timezone ||= "America/Chicago"
   end
 end

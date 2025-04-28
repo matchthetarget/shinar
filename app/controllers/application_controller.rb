@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
     @_current_user ||= User.find_by(id: cookies.signed[:user_id])
 
     if @_current_user.blank?
-      # Detect timezone for new users
-      @_current_user = User.create!(timezone: detect_timezone)
+      # Use default timezone (Central Time)
+      @_current_user = User.create!
 
       cookies.signed[:user_id] = {
         value: @_current_user.id,
@@ -29,10 +29,6 @@ class ApplicationController < ActionController::Base
   def set_time_zone(&block)
     # Set Time.zone based on the user's timezone
     Time.use_zone(current_user.timezone, &block)
-  end
-
-  def detect_timezone
-    TimezoneService.detect_timezone(request.remote_ip)
   end
 
   def current_user
