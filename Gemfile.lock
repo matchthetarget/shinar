@@ -185,6 +185,7 @@ GEM
       activesupport (>= 7)
     haikunator (1.1.1)
     hashdiff (1.1.2)
+    hiredis (0.6.3)
     htmlbeautifier (1.4.3)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
@@ -377,6 +378,7 @@ GEM
       i18n
     rdoc (6.12.0)
       psych (>= 4.0.0)
+    redis (4.8.1)
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
@@ -462,11 +464,6 @@ GEM
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    solid_cable (3.0.7)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     solid_cache (1.0.7)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -567,6 +564,7 @@ DEPENDENCIES
   grade_runner (~> 0.0.13)
   groupdate
   haikunator
+  hiredis
   htmlbeautifier
   importmap-rails
   jbuilder
@@ -583,6 +581,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   ransack
+  redis (~> 4.0)
   rollbar
   rqrcode
   rspec-html-matchers
@@ -592,7 +591,6 @@ DEPENDENCIES
   selenium-webdriver (~> 4.11.0)
   shoulda-matchers (~> 6.4)
   simple_form
-  solid_cable
   solid_cache
   solid_queue
   stimulus-rails

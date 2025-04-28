@@ -32,9 +32,9 @@ class Message < ApplicationRecord
   before_validation :set_original_language
   validates :content, presence: true
 
-  # after_create_commit -> { broadcast_refresh_to chat }
-  # after_update_commit -> { broadcast_refresh_to chat }
-  # after_destroy_commit -> { broadcast_refresh_to chat }
+  after_create_commit -> { broadcast_refresh_to chat }
+  after_update_commit -> { broadcast_refresh_to chat }
+  after_destroy_commit -> { broadcast_refresh_to chat }
 
   def set_original_language
     self.original_language = author.preferred_language
