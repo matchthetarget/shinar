@@ -20,7 +20,7 @@
     <%= form.collection_select :preferred_language_id, 
                               Language.all.order(:name_english), 
                               :id, 
-                              ->(language) { "#{language.name} (#{language.name_english}) #{language.icon}" }, 
+                              :to_display, 
                               {}, 
                               { class: "form-select" } %>
   </div>

@@ -23,4 +23,12 @@ class Language < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :icon, presence: true
   validates :name_english, presence: true, uniqueness: true
+
+  def to_display
+    if name == name_english
+      name
+    else
+      "#{name} (#{name_english})"
+    end
+  end
 end

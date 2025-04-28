@@ -4,11 +4,7 @@
       <div class="flex-grow-1">
         <h6 class="mb-0"><%= chat_user.user.name %> (<%= current_user.preferred_language.you %>)</h6>
         <small class="text-muted">
-          <%= chat_user.user.preferred_language.name %>
-          <% if chat_user.user.preferred_language.name != chat_user.user.preferred_language.name_english %>
-            (<%= chat_user.user.preferred_language.name_english %>)
-          <% end %>
-          <%= chat_user.user.preferred_language.icon %>
+          <%= chat_user.user.preferred_language.to_display %>
         </small>
       </div>
     </div>
@@ -19,11 +15,7 @@
       <div class="flex-grow-1">
         <h6 class="mb-0"><%= chat_user.user.name %></h6>
         <small class="text-muted">
-          <%= chat_user.user.preferred_language.name %>
-          <% if chat_user.user.preferred_language.name != chat_user.user.preferred_language.name_english %>
-            (<%= chat_user.user.preferred_language.name_english %>)
-          <% end %>
-          <%= chat_user.user.preferred_language.icon %>
+          <%= chat_user.user.preferred_language.to_display %>
         </small>
       </div>
     </div>
