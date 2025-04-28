@@ -4,6 +4,7 @@
 #
 #  id                    :bigint           not null, primary key
 #  name                  :string           default("pending"), not null
+#  timezone              :string           default("UTC")
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  preferred_language_id :bigint           not null

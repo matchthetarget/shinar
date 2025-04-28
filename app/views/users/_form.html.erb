@@ -15,7 +15,7 @@
     <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="mb-4">
+  <div class="mb-3">
     <%= form.label :preferred_language_id, "Preferred Language", class: "form-label" %>
     <%= form.collection_select :preferred_language_id, 
                               Language.all.order(:name_english), 
@@ -23,6 +23,14 @@
                               :to_display, 
                               {}, 
                               { class: "form-select" } %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :timezone, "Timezone", class: "form-label" %>
+    <%= form.time_zone_select :timezone, 
+                             ActiveSupport::TimeZone.all.sort, 
+                             { default: user.timezone || "UTC" }, 
+                             { class: "form-select" } %>
   </div>
 
   <div class="mb-3">

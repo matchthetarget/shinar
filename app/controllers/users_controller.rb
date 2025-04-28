@@ -84,7 +84,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :name, :preferred_language_id ])
+      params.expect(user: [ :name, :preferred_language_id, :timezone ])
     end
 
     def authorize_user

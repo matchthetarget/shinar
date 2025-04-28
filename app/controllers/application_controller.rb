@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :set_current_user
+  around_action :set_time_zone, if: :current_user
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -13,7 +14,8 @@ class ApplicationController < ActionController::Base
     @_current_user ||= User.find_by(id: cookies.signed[:user_id])
 
     if @_current_user.blank?
-      @_current_user = User.create!
+      # Detect timezone for new users
+      @_current_user = User.create!(timezone: detect_timezone)
 
       cookies.signed[:user_id] = {
         value: @_current_user.id,
@@ -22,6 +24,15 @@ class ApplicationController < ActionController::Base
 
       flash.now[:notice] = "Signed in as #{@_current_user.name}."
     end
+  end
+
+  def set_time_zone(&block)
+    # Set Time.zone based on the user's timezone
+    Time.use_zone(current_user.timezone, &block)
+  end
+
+  def detect_timezone
+    TimezoneService.detect_timezone(request.remote_ip)
   end
 
   def current_user
