@@ -36,7 +36,7 @@ class NewMessageNotifier < ApplicationNotifier
         message: {
           token: device_token,
           notification: {
-            title: "Someone replied in your chat!"
+            title: "Someone sent a message in a chat you're a member of!"
           },
           data: {
             path: chat_path(params[:chat])
