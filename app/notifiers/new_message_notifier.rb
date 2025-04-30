@@ -10,7 +10,7 @@ class NewMessageNotifier < ApplicationNotifier
       recipient.notification_tokens.where(platform: :iOS).pluck(:token)
     }
     config.format = ->(apn) {
-      apn.alert = "Someone replied to in your chat!"
+      apn.alert = "Someone sent a message in a chat you're a member of!"
       apn.custom_payload = {
         path: chat_path(params[:chat])
       }
