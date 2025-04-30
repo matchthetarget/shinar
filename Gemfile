@@ -14,8 +14,6 @@ gem "stimulus-rails"               # Hotwire's modest JavaScript framework
 gem "turbo-rails"                  # Hotwire's SPA-like page accelerator
 
 # Rails services
-# gem "redis", "~> 4.0"                  # Redis client
-# gem "hiredis"                       # Faster Redis client
 gem "solid_cache"                  # Database-backed adapter for Rails.cache
 gem "solid_queue"                  # Database-backed adapter for Active Job
 gem "solid_cable"                  # Database-backed adapter for Action Cable
