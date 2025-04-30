@@ -67,7 +67,7 @@ class Message < ApplicationRecord
     chat.messages = [
       {
         role: "system",
-        content: "You are an expert translator. Your task is to translate text from the source language to the target language, doing your best to preserve meaning, tone, idiom, and formatting."
+        content: "You are an expert translator. Your task is to translate text from the source language to the target language, preserving meaning, tone, and formatting. Try your best to translate idioms, colloquialisms, proverbs, etc, semantically; rather than word-for-word."
       },
       {
         role: "user",
