@@ -1,7 +1,14 @@
 <% content_for :title, "All Chats | Shinar" %>
 
+<meta data-controller="bridge--notification-token">
+
 <div class="d-flex align-items-center mb-4">
-  <%= button_to chats_path, method: :post, class: "btn btn-primary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;" do %>
+  <%= button_to chats_path, method: :post, class: "btn btn-primary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;", data: {
+        controller: "bridge--button",
+        bridge_title: "Add",
+        bridge_ios_image_name: "plus",
+        bridge_android_icon_name: "add"
+        }  do %>
     <i class="fas fa-plus"></i>
   <% end %>
   <nav aria-label="breadcrumb" class="mb-0 fs-4">
