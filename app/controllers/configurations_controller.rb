@@ -21,7 +21,7 @@ class ConfigurationsController < ApplicationController
             "context": "modal",
             pull_to_refresh_enabled: false
           }
-        },
+        }
       ]
     }
   end

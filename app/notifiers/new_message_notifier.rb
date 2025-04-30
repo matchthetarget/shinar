@@ -26,7 +26,7 @@ class NewMessageNotifier < ApplicationNotifier
 
   deliver_by :fcm do |config|
     config.credentials = Rails.application.credentials.fcm.to_h
-  
+
     config.device_tokens = -> {
       recipient.notification_tokens.where(platform: :FCM).pluck(:token)
     }
