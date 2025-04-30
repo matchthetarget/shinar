@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "rake/db_seed"
   resources :configurations, only: [] do
     get :android_v1, on: :collection
   end
