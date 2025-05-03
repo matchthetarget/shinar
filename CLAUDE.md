@@ -9,12 +9,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Run specific test: `bin/rails test TEST=path/to/test_file.rb:line_number`
 - Run specific spec: `bundle exec rspec spec/path/to/spec_file.rb:line_number`
 - Generate sample data: `bin/rails sample_data`
-- Linting: `bundle exec rubocop -A` (run before every commit)
+- Linting: `bundle exec standardrb --fix` (run before every commit)
 - Database: `bin/rails db:migrate`, `bin/rails db:seed`, `bin/rails sample_data`
 
 ## Git
 
-- Before every commit, `bundle exec rubocop -A`.
+- Before every commit, `bundle exec standardrb --fix`.
 - Don't add Claude attribution.
 - Write a great git commit message.
 - Obey good commit message styling rules, e.g. length of subject line should be no more than 50.

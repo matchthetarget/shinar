@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
-  before_action :store_location, only: [ :edit ]
-  before_action :authorize_user, only: [ :edit, :update, :destroy ]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :store_location, only: [:edit]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
 
   # GET /users or /users.json
   def index
@@ -40,12 +40,12 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        if request.referrer&.include?(edit_user_path(@user))
+        redirect_path = if request.referrer&.include?(edit_user_path(@user))
           # Coming from edit page, use stored location
-          redirect_path = session[:return_to] || root_path
+          session[:return_to] || root_path
         else
           # Coming from elsewhere (like language dropdown), redirect back to referrer
-          redirect_path = request.referrer || root_path
+          request.referrer || root_path
         end
 
         # Clear stored location
@@ -77,24 +77,25 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.expect(user: [ :name, :preferred_language_id, :timezone ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params.expect(:id))
+  end
 
-    def authorize_user
-      authorize @user
-    end
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.expect(user: [:name, :preferred_language_id, :timezone])
+  end
 
-    def store_location
-      # Store the HTTP_REFERER for redirect after update
-      if request.referer && !request.referer.include?(edit_user_path(@user))
-        session[:return_to] = request.referer
-      end
+  def authorize_user
+    authorize @user
+  end
+
+  def store_location
+    # Store the HTTP_REFERER for redirect after update
+    if request.referer && !request.referer.include?(edit_user_path(@user))
+      session[:return_to] = request.referer
     end
+  end
 end

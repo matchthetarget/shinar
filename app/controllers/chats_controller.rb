@@ -1,12 +1,12 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show edit update destroy qr ]
+  before_action :set_chat, only: %i[show edit update destroy qr]
 
   # GET /chats or /chats.json
   def index
-    if Rails.env.production?
-      @chats = policy_scope(Chat).order(updated_at: :desc)
+    @chats = if Rails.env.production?
+      policy_scope(Chat).order(updated_at: :desc)
     else
-      @chats = Chat.all.order(updated_at: :desc)
+      Chat.all.order(updated_at: :desc)
     end
   end
 
@@ -84,13 +84,14 @@ class ChatsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chat
-      @chat = Chat.find_by!(token: params[:token])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def chat_params
-      params.require(:chat).permit(:subject)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chat
+    @chat = Chat.find_by!(token: params[:token])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def chat_params
+    params.require(:chat).permit(:subject)
+  end
 end

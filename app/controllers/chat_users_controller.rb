@@ -1,5 +1,5 @@
 class ChatUsersController < ApplicationController
-  before_action :set_chat_user, only: %i[ show edit update destroy ]
+  before_action :set_chat_user, only: %i[show edit update destroy]
 
   # GET /chat_users or /chat_users.json
   def index
@@ -58,13 +58,14 @@ class ChatUsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chat_user
-      @chat_user = ChatUser.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def chat_user_params
-      params.expect(chat_user: [ :chat_id, :user_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chat_user
+    @chat_user = ChatUser.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def chat_user_params
+    params.expect(chat_user: [:chat_id, :user_id])
+  end
 end

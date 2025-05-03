@@ -6,13 +6,5 @@ export default class extends Controller {
 
   copy() {
     const textToCopy = this.hasTextValue ? this.textValue : window.location.href
-    
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        console.log("Copied to clipboard")
-      })
-      .catch(err => {
-        console.error("Failed to copy: ", err)
-      })
   }
 }
