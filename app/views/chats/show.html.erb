@@ -26,7 +26,6 @@
 </div>
 
 <div class="row flex-grow-1 d-flex flex-column flex-md-row">
-  <!-- Actions sidebar -->
   <div class="col-12 col-md-4 col-lg-3 order-md-2 mb-3">
     <div class="d-flex gap-3 d-md-none">
       <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success w-100" do %>
@@ -58,7 +57,6 @@
     </div>
   </div>
   
-  <!-- Chat messages - fill available height -->
   <div class="col-12 col-md-8 col-lg-9 order-md-1 d-flex flex-column flex-grow-1">
     <!-- Message container with scrolling - take up all available space -->
     <div class="position-relative flex-grow-1">
@@ -87,10 +85,9 @@
         </div>
       </div>
     </div>
-
-    <!-- Message form at bottom -->
-    <div class="my-3">
-      <%= render "messages/new_form", chat: @chat %>
-    </div>
   </div>
+</div>
+
+<div class="col-12 col-md-8 col-lg-9 pt-1 pb-3">
+  <%= render "messages/new_form", chat: @chat %>
 </div>
