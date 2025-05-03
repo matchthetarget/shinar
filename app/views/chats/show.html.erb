@@ -55,7 +55,7 @@
       <div class="position-relative flex-grow-1 overflow-hidden">
         <!-- Message list with internal scrolling -->
         <div id="<%= dom_id(@chat, :message_list) %>" class="position-absolute top-0 start-0 bottom-0 end-0 overflow-auto" data-controller="chat">
-          <div class="list-group d-flex flex-column-reverse mb-0">
+          <div class="list-group mb-0">
             <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
             
             <% if messages_by_day.empty? %>
@@ -63,8 +63,7 @@
                 Today
               </div>
             <% else %>
-              <% messages_by_day.to_a.reverse.each do |day, messages| %>
-                <%= render messages.reverse %>
+              <% messages_by_day.each do |day, messages| %>
                 <div class="list-group-item text-center bg-light text-nowrap">
                   <% if day == Date.today %>
                     Today
@@ -74,6 +73,7 @@
                     <%= day.strftime("%A, %B %-d, %Y") %>
                   <% end %>
                 </div>
+                <%= render messages %>
               <% end %>
             <% end %>
           </div>
