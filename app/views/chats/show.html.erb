@@ -23,14 +23,14 @@
   </div>
 </div>
 
-<div class="row mb-4" data-controller="clipboard">
+<div class="row mb-4">
   <div class="col-6 pe-1">
     <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success w-100" do %>
       <i class="fas fa-qrcode me-2"></i> QR Code
     <% end %>
   </div>
   <div class="col-6 ps-1">
-    <button class="btn btn-outline-success w-100" data-clipboard-target="button" data-action="click->clipboard#copy">
+    <button class="btn btn-outline-success w-100" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
       <i class="fas fa-link me-2"></i> Copy Link
     </button>
   </div>
