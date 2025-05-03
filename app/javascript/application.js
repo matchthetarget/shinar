@@ -2,6 +2,10 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 
+// Bootstrap JS with Popper
+import * as bootstrap from "bootstrap"
+window.bootstrap = bootstrap;
+
 // Change to true to allow Turbo
 import { Turbo } from "@hotwired/turbo-rails";
 Turbo.session.drive = true;

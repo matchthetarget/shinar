@@ -9,6 +9,7 @@ gem "rails", "~> 8.0.2"
 
 # Frontend
 gem "jsbundling-rails"             # Bundle and transpile JavaScript
+gem "cssbundling-rails"           # Bundle and process CSS
 gem "jbuilder"                     # Build JSON APIs
 gem "stimulus-rails"               # Hotwire's modest JavaScript framework
 gem "turbo-rails"                  # Hotwire's SPA-like page accelerator
