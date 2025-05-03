@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :messages
     member do
       get "qr"
+      get "members"
     end
   end
   resources :users do

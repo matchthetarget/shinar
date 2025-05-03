@@ -38,10 +38,14 @@
         <button class="btn btn-outline-success" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
           <i class="fas fa-link me-1 fa-fw"></i> Copy link
         </button>
+        
+        <%= link_to members_chat_path(@chat), class: "btn btn-outline-success d-md-none" do %>
+          <i class="fas fa-users me-1 fa-fw"></i> Chat members (<%= @chat.chat_users_count %>)
+        <% end %>
       </div>
       
       <!-- Chat members list -->
-      <div class="list-group mb-0 flex-grow-1 overflow-auto">
+      <div class="list-group mb-0 flex-grow-1 overflow-auto d-md-block d-none">
         <div class="list-group-item text-center bg-light text-nowrap">
           Chat members (<%= @chat.chat_users_count %>)
         </div>

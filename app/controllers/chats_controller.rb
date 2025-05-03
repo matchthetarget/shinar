@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[show edit update destroy qr]
+  before_action :set_chat, only: %i[show edit update destroy qr members]
 
   # GET /chats or /chats.json
   def index
@@ -81,6 +81,12 @@ class ChatsController < ApplicationController
         send_data @qr.as_png(size: 300).to_s, type: "image/png", disposition: "inline"
       end
     end
+  end
+
+  # GET /chats/:token/members
+  def members
+    # Eager load chat users, their users, and preferred languages to avoid N+1 queries
+    @chat_users = @chat.chat_users.includes(user: :preferred_language)
   end
 
   private
