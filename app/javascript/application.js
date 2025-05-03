@@ -17,12 +17,6 @@ window.$ = jquery;
 import Rails from "@rails/ujs"
 Rails.start();
 
-// Disable Bootstrap smooth scrolling
-document.addEventListener('DOMContentLoaded', () => {
-  window.addEventListener('scroll', () => {}, { passive: true });
-  document.documentElement.style.scrollBehavior = 'auto';
-});
-
 // Handle autofocus after Turbo navigation
 document.addEventListener('turbo:load', () => {
   const elements = document.querySelectorAll('[data-controller="autofocus"]')
@@ -31,7 +25,7 @@ document.addEventListener('turbo:load', () => {
     if (autofocusElement) {
       setTimeout(() => {
         autofocusElement.focus()
-        autofocusElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        autofocusElement.scrollIntoView({ behavior: 'auto', block: 'center' })
       }, 100)
     }
   })
