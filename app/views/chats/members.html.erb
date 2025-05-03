@@ -15,7 +15,7 @@
   <div class="col-md-8 col-lg-9">
     <div class="list-group">
       <div class="list-group-item text-center bg-light text-nowrap">
-        Chat members (<%= @chat.chat_users_count %>)
+        <%= pluralize(@chat.chat_users_count, "member") %>
       </div>
       <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
     </div>
