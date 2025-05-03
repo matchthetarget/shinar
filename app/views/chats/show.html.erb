@@ -25,66 +25,57 @@
   </div>
 </div>
 
-<div class="row flex-grow-1 overflow-hidden">
-  <!-- Mobile-first order: Chat members first on small screens -->
-  <div class="col-md-4 col-lg-3 order-md-2 d-flex flex-column gap-3 mb-3">
-    <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success" do %>
-      <i class="fas fa-qrcode me-1 fa-fw"></i> QR code
-    <% end %>
-    
-    <button class="btn btn-outline-success" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
-      <i class="fas fa-link me-1 fa-fw"></i> Copy link
-    </button>
-    
-    <%= link_to members_chat_path(@chat), class: "btn btn-outline-success d-md-none" do %>
-      <i class="fas fa-users me-1 fa-fw"></i> Chat members (<%= @chat.chat_users_count %>)
-    <% end %>
-    
-    <!-- Chat members list -->
-    <div class="list-group mb-0 flex-grow-1 overflow-auto d-md-block d-none">
-      <div class="list-group-item text-center bg-light text-nowrap">
-        Chat members (<%= @chat.chat_users_count %>)
-      </div>
-      <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
+<div class="row">
+  <!-- Actions sidebar -->
+  <div class="col-12 col-md-4 col-lg-3 order-md-2 mb-3">
+    <div class="d-flex flex-column gap-3">
+      <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success" do %>
+        <i class="fas fa-qrcode me-1 fa-fw"></i> QR code
+      <% end %>
+      
+      <button class="btn btn-outline-success" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
+        <i class="fas fa-link me-1 fa-fw"></i> Copy link
+      </button>
+      
+      <%= link_to members_chat_path(@chat), class: "btn btn-outline-success" do %>
+        <i class="fas fa-users me-1 fa-fw"></i> Chat members (<%= @chat.chat_users_count %>)
+      <% end %>
     </div>
   </div>
   
-  <!-- Chat messages second on mobile, first on larger screens -->
-  <div class="col-md-8 col-lg-9 order-md-1 d-flex flex-column overflow-hidden">
-    <div class="d-flex flex-column h-100 overflow-hidden">
-      <!-- Message container with fixed form at bottom -->
-      <div class="position-relative flex-grow-1 overflow-hidden">
-        <!-- Message list with internal scrolling -->
-        <div id="<%= dom_id(@chat, :message_list) %>" class="position-absolute top-0 start-0 bottom-0 end-0 overflow-auto" data-controller="chat">
-          <div class="list-group mb-0">
-            <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
-            
-            <% if messages_by_day.empty? %>
+  <!-- Chat messages -->
+  <div class="col-12 col-md-8 col-lg-9 order-md-1 d-flex flex-column">
+    <!-- Message container with scrolling -->
+    <div class="position-relative flex-grow-1">
+      <div id="<%= dom_id(@chat, :message_list) %>" class="position-absolute top-0 start-0 bottom-0 end-0 overflow-auto" data-controller="chat">
+        <div class="list-group mb-0">
+          <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
+          
+          <% if messages_by_day.empty? %>
+            <div class="list-group-item text-center bg-light text-nowrap">
+              Today
+            </div>
+          <% else %>
+            <% messages_by_day.each do |day, messages| %>
               <div class="list-group-item text-center bg-light text-nowrap">
-                Today
+                <% if day == Date.today %>
+                  Today
+                <% elsif day == Date.yesterday %>
+                  Yesterday
+                <% else %>
+                  <%= day.strftime("%A, %B %-d, %Y") %>
+                <% end %>
               </div>
-            <% else %>
-              <% messages_by_day.each do |day, messages| %>
-                <div class="list-group-item text-center bg-light text-nowrap">
-                  <% if day == Date.today %>
-                    Today
-                  <% elsif day == Date.yesterday %>
-                    Yesterday
-                  <% else %>
-                    <%= day.strftime("%A, %B %-d, %Y") %>
-                  <% end %>
-                </div>
-                <%= render messages %>
-              <% end %>
+              <%= render messages %>
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
+    </div>
 
-      <!-- Fixed new message form at bottom -->
-      <div class="my-3">
-        <%= render "messages/new_form", chat: @chat %>
-      </div>
+    <!-- Message form at bottom -->
+    <div class="my-3">
+      <%= render "messages/new_form", chat: @chat %>
     </div>
   </div>
 </div>

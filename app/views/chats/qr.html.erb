@@ -16,34 +16,30 @@
   </div>
 </div>
 
-<div class="row flex-grow-1 overflow-hidden">
-  <div class="col-md-8 col-lg-9 d-flex flex-column overflow-hidden">
-    <div class="d-flex flex-column h-100 overflow-hidden">
-      <!-- QR code container with internal scrolling -->
-      <div class="flex-grow-1 d-flex flex-column">
-        <div class="list-group mb-0 h-100 d-flex flex-column">
-          <div class="list-group-item text-center bg-light text-nowrap">
-            Scan to join <%= @chat.subject %>
-          </div>
-          <div class="list-group-item text-center flex-grow-1 d-flex flex-column justify-content-center">
-            <div class="d-flex justify-content-center align-items-center h-100">
-              <div style="width: 60%; max-height: 80%;">
-                <%= @qr.as_svg(module_size: 4, viewbox: true).html_safe %>
-              </div>
-            </div>
+<div class="row">
+  <div class="col-md-8 col-lg-9">
+    <!-- QR code container -->
+    <div class="list-group mb-3">
+      <div class="list-group-item text-center bg-light text-nowrap">
+        Scan to join <%= @chat.subject %>
+      </div>
+      <div class="list-group-item text-center p-4">
+        <div class="d-flex justify-content-center">
+          <div style="width: 60%;">
+            <%= @qr.as_svg(module_size: 4, viewbox: true).html_safe %>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Fixed chat URL info at bottom -->
-      <div class="my-3 text-center">
-        <p>Chat URL: 
-          <a href="<%= chat_url(@chat) %>"><%= chat_url(@chat) %></a>
-          <button data-controller="clipboard" data-clipboard-text-value="<%= chat_url(@chat) %>" data-clipboard-target="button" data-action="click->clipboard#copy" class="btn btn-sm btn-link p-0 ms-1" style="vertical-align: baseline;">
-            <i class="fas fa-copy" style="font-size: 0.8rem;"></i>
-          </button>
-        </p>
-      </div>
+    <!-- Chat URL info -->
+    <div class="text-center">
+      <p>Chat URL: 
+        <a href="<%= chat_url(@chat) %>"><%= chat_url(@chat) %></a>
+        <button data-controller="clipboard" data-clipboard-text-value="<%= chat_url(@chat) %>" data-clipboard-target="button" data-action="click->clipboard#copy" class="btn btn-sm btn-link p-0 ms-1" style="vertical-align: baseline;">
+          <i class="fas fa-copy" style="font-size: 0.8rem;"></i>
+        </button>
+      </p>
     </div>
   </div>
 </div>
