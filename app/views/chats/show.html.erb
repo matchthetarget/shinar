@@ -28,7 +28,29 @@
 <div class="row flex-grow-1 d-flex flex-column flex-md-row">
   <!-- Actions sidebar -->
   <div class="col-12 col-md-4 col-lg-3 order-md-2 mb-3">
-    <div class="d-flex flex-column gap-3">
+    <!-- Mobile: horizontal row of buttons with equal width using grid -->
+    <div class="row g-2 d-md-none">
+      <div class="col-4">
+        <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success w-100" do %>
+          <i class="fas fa-qrcode me-1 fa-fw"></i> QR
+        <% end %>
+      </div>
+      
+      <div class="col-4">
+        <button class="btn btn-outline-success w-100" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
+          <i class="fas fa-link me-1 fa-fw"></i> Copy
+        </button>
+      </div>
+      
+      <div class="col-4">
+        <%= link_to members_chat_path(@chat), class: "btn btn-outline-success w-100" do %>
+          <i class="fas fa-users me-1 fa-fw"></i> Members
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Desktop: vertical column of buttons -->
+    <div class="d-none d-md-flex flex-column gap-3">
       <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success" do %>
         <i class="fas fa-qrcode me-1 fa-fw"></i> QR code
       <% end %>
@@ -38,7 +60,7 @@
       </button>
       
       <%= link_to members_chat_path(@chat), class: "btn btn-outline-success" do %>
-        <i class="fas fa-users me-1 fa-fw"></i> Chat members (<%= @chat.chat_users_count %>)
+        <i class="fas fa-users me-1 fa-fw"></i> Members (<%= @chat.chat_users_count %>)
       <% end %>
     </div>
   </div>
