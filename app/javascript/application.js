@@ -10,6 +10,10 @@ window.bootstrap = bootstrap;
 import { Turbo } from "@hotwired/turbo-rails";
 Turbo.session.drive = true;
 
+// Initialize TurboPower
+import TurboPower from "turbo_power";
+TurboPower.initialize(Turbo.StreamActions);
+
 // Add jQuery for legacy compatibility if needed
 import jquery from "jquery";
 window.jQuery = jquery;

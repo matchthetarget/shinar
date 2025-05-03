@@ -77,3 +77,5 @@ group :test do
   gem "webdrivers"                 # Browser drivers
   gem "webmock"                    # Mock HTTP requests
 end
+
+gem "turbo_power", "~> 0.7.0"
