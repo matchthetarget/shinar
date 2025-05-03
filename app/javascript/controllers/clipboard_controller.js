@@ -32,7 +32,7 @@ export default class extends Controller {
     // Change button text if we have a button target
     if (this.hasButtonTarget) {
       const originalText = this.originalText
-      this.buttonTarget.innerHTML = "Copied!"
+      this.buttonTarget.innerHTML = '<i class="fas fa-check me-1 fa-fw"></i> Copied!'
       
       // Reset after 5 seconds
       setTimeout(() => {
