@@ -8,7 +8,7 @@
       <i class="fas fa-arrow-left"></i>
     <% end %>
   </div>
-  <nav aria-label="breadcrumb" class="mb-0 fs-md-4 me-auto">
+  <nav aria-label="breadcrumb" class="mb-0 me-auto">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item"><a href="<%= chats_path %>">Chats</a></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @chat.subject %></li>
@@ -27,30 +27,25 @@
 
 <div class="row flex-grow-1 overflow-hidden">
   <!-- Mobile-first order: Chat members first on small screens -->
-  <div class="col-md-4 col-lg-3 order-md-2 mb-md-0 d-flex flex-column">
-    <div class="position-sticky h-100 d-flex flex-column" style="top: 0;">
-      <!-- QR and Share buttons -->
-      <div class="d-flex flex-column gap-3 mb-3">
-        <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success" do %>
-          <i class="fas fa-qrcode me-1 fa-fw"></i> QR code
-        <% end %>
-        
-        <button class="btn btn-outline-success" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
-          <i class="fas fa-link me-1 fa-fw"></i> Copy link
-        </button>
-        
-        <%= link_to members_chat_path(@chat), class: "btn btn-outline-success d-md-none" do %>
-          <i class="fas fa-users me-1 fa-fw"></i> Chat members (<%= @chat.chat_users_count %>)
-        <% end %>
+  <div class="col-md-4 col-lg-3 order-md-2 d-flex flex-column gap-3 mb-3">
+    <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success" do %>
+      <i class="fas fa-qrcode me-1 fa-fw"></i> QR code
+    <% end %>
+    
+    <button class="btn btn-outline-success" data-controller="clipboard" data-clipboard-target="button" data-action="click->clipboard#copy">
+      <i class="fas fa-link me-1 fa-fw"></i> Copy link
+    </button>
+    
+    <%= link_to members_chat_path(@chat), class: "btn btn-outline-success d-md-none" do %>
+      <i class="fas fa-users me-1 fa-fw"></i> Chat members (<%= @chat.chat_users_count %>)
+    <% end %>
+    
+    <!-- Chat members list -->
+    <div class="list-group mb-0 flex-grow-1 overflow-auto d-md-block d-none">
+      <div class="list-group-item text-center bg-light text-nowrap">
+        Chat members (<%= @chat.chat_users_count %>)
       </div>
-      
-      <!-- Chat members list -->
-      <div class="list-group mb-0 flex-grow-1 overflow-auto d-md-block d-none">
-        <div class="list-group-item text-center bg-light text-nowrap">
-          Chat members (<%= @chat.chat_users_count %>)
-        </div>
-        <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
-      </div>
+      <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
     </div>
   </div>
   
