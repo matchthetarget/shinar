@@ -63,7 +63,7 @@ class Message < ApplicationRecord
 
   def translate(target_language)
     chat = AI::Chat.new
-    chat.model = "gpt-4.1-nano"
+    chat.model = "o4-mini"
     chat.messages = [
       {
         role: "system",
