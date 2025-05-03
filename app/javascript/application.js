@@ -14,6 +14,9 @@ Turbo.session.drive = true;
 import TurboPower from "turbo_power";
 TurboPower.initialize(Turbo.StreamActions);
 
+// Custom Turbo Stream actions
+import "./custom/stimulus_invoker";
+
 // Add jQuery for legacy compatibility if needed
 import jquery from "jquery";
 window.jQuery = jquery;

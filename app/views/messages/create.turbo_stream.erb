@@ -3,3 +3,7 @@
 <%= turbo_stream.replace dom_id(@chat, :new_message_form) do %>
   <%= render "messages/new_form", chat: @chat %>
 <% end %>
+
+<%= turbo_stream_action_tag :invoke_stimulus,
+      target: "##{dom_id(@chat, :message_list)}",
+      method: "scrollToBottom" %>
