@@ -5,20 +5,12 @@ A multilingual chat application that allows users to communicate across language
 ## Setup
 
 1. Clone the repository
-2. Install Ruby dependencies:
+2. Run the setup script:
    ```
-   bundle install
+   bin/setup
    ```
-3. Install JavaScript dependencies:
-   ```
-   yarn install
-   ```
-4. Setup the database:
-   ```
-   bin/rails db:create
-   bin/rails db:migrate
-   bin/rails db:seed
-   ```
+
+This will install all dependencies, set up the database with seed and sample data, and prepare your development environment.
 
 ## Development
 
