@@ -8,7 +8,7 @@ gem "puma", ">= 5.0"               # Web server
 gem "rails", "~> 8.0.2"
 
 # Frontend
-gem "importmap-rails"              # JavaScript with ESM import maps
+gem "jsbundling-rails"             # Bundle and transpile JavaScript
 gem "jbuilder"                     # Build JSON APIs
 gem "stimulus-rails"               # Hotwire's modest JavaScript framework
 gem "turbo-rails"                  # Hotwire's SPA-like page accelerator
