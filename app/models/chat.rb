@@ -2,12 +2,13 @@
 #
 # Table name: chats
 #
-#  id         :bigint           not null, primary key
-#  subject    :string           default("pending"), not null
-#  token      :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  creator_id :bigint           not null
+#  id               :bigint           not null, primary key
+#  chat_users_count :integer          default(0), not null
+#  subject          :string           default("pending"), not null
+#  token            :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  creator_id       :bigint           not null
 #
 # Indexes
 #

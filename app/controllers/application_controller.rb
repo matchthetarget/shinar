@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-  allow_browser versions: :modern
+  allow_browser versions: :modern if Rails.env.production?
 
   before_action :set_current_user
   around_action :set_time_zone, if: :current_user
