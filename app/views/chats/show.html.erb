@@ -41,7 +41,7 @@
       <!-- Chat members list -->
       <div class="list-group mb-0 flex-grow-1 overflow-auto">
         <div class="list-group-item text-center bg-light text-nowrap">
-          Chat members
+          Chat members (<%= @chat.chat_users_count %>)
         </div>
         <%= render partial: "chat_users/sidebar_user", collection: @chat_users, as: :chat_user %>
       </div>
