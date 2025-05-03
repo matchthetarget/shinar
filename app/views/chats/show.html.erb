@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row flex-grow-1 d-flex flex-column flex-md-row">
   <!-- Actions sidebar -->
   <div class="col-12 col-md-4 col-lg-3 order-md-2 mb-3">
     <div class="d-flex flex-column gap-3">
@@ -43,9 +43,9 @@
     </div>
   </div>
   
-  <!-- Chat messages -->
-  <div class="col-12 col-md-8 col-lg-9 order-md-1 d-flex flex-column">
-    <!-- Message container with scrolling -->
+  <!-- Chat messages - fill available height -->
+  <div class="col-12 col-md-8 col-lg-9 order-md-1 d-flex flex-column flex-grow-1 overflow-hidden">
+    <!-- Message container with scrolling - take up all available space -->
     <div class="position-relative flex-grow-1">
       <div id="<%= dom_id(@chat, :message_list) %>" class="position-absolute top-0 start-0 bottom-0 end-0 overflow-auto" data-controller="chat">
         <div class="list-group mb-0">
