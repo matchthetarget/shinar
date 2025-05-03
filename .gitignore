@@ -45,3 +45,6 @@ examples.txt
 !/app/assets/builds/.keep
 
 /node_modules
+
+# Ignore bundled gems in vendor/bundle
+/vendor/bundle/
