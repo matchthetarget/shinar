@@ -4,6 +4,7 @@ import { application } from "../controllers/application" // Adjusted path to Sti
 Turbo.StreamActions.invoke_stimulus = function() {
   const method = this.getAttribute("method")
   const targetSelector = this.getAttribute("target") // Get target from attribute
+  const delay = parseInt(this.getAttribute("delay") || "0", 10) // Optional delay in ms
   
   // Parse arguments - handle both array and object formats
   let args = []
@@ -18,44 +19,53 @@ Turbo.StreamActions.invoke_stimulus = function() {
     args = []
   }
 
-  // Find all elements matching the selector
-  const elements = document.querySelectorAll(targetSelector);
-  if (elements.length === 0) {
-    console.warn(`Turbo Stream 'invoke_stimulus': No elements found for selector "${targetSelector}"`);
-    return;
-  }
-
-  elements.forEach(element => {
-    const controllerAttribute = element.getAttribute("data-controller");
-    if (!controllerAttribute) {
-      console.warn(`Turbo Stream 'invoke_stimulus': Target element has no data-controller attribute.`, element);
-      return; // Skip elements without controllers
+  // Function to execute controller method
+  const invokeMethod = () => {
+    const elements = document.querySelectorAll(targetSelector);
+    if (elements.length === 0) {
+      console.warn(`Turbo Stream 'invoke_stimulus': No elements found for selector "${targetSelector}"`);
+      return;
     }
 
-    // Extract controller identifiers (supports multiple space-separated controllers)
-    const controllerIdentifiers = controllerAttribute.split(" ");
+    elements.forEach(element => {
+      const controllerAttribute = element.getAttribute("data-controller");
+      if (!controllerAttribute) {
+        console.warn(`Turbo Stream 'invoke_stimulus': Target element has no data-controller attribute.`, element);
+        return; // Skip elements without controllers
+      }
 
-    // Try to find a matching controller with the method
-    let methodInvoked = false;
-    
-    controllerIdentifiers.forEach(identifier => {
-      try {
-        const controller = application.getControllerForElementAndIdentifier(element, identifier);
+      // Extract controller identifiers (supports multiple space-separated controllers)
+      const controllerIdentifiers = controllerAttribute.split(" ");
 
-        if (controller && typeof controller[method] === 'function') {
-          console.log(`Invoking ${identifier}#${method} on`, element, 'with args:', args);
-          controller[method](...args); // Use spread operator for arguments
-          methodInvoked = true;
-        } else if (controller) {
-          console.warn(`Turbo Stream 'invoke_stimulus': Method "${method}" not found on controller "${identifier}".`);
+      // Try to find a matching controller with the method
+      let methodInvoked = false;
+      
+      controllerIdentifiers.forEach(identifier => {
+        try {
+          const controller = application.getControllerForElementAndIdentifier(element, identifier);
+
+          if (controller && typeof controller[method] === 'function') {
+            console.log(`Invoking ${identifier}#${method} on`, element, 'with args:', args);
+            controller[method](...args); // Use spread operator for arguments
+            methodInvoked = true;
+          } else if (controller) {
+            console.warn(`Turbo Stream 'invoke_stimulus': Method "${method}" not found on controller "${identifier}".`);
+          }
+        } catch (error) {
+          console.error(`Error invoking Stimulus controller method: ${error.message}`);
         }
-      } catch (error) {
-        console.error(`Error invoking Stimulus controller method: ${error.message}`);
+      });
+      
+      if (!methodInvoked) {
+        console.warn(`No controller with method "${method}" found for element:`, element);
       }
     });
-    
-    if (!methodInvoked) {
-      console.warn(`No controller with method "${method}" found for element:`, element);
-    }
-  });
+  };
+  
+  // Execute immediately or with delay
+  if (delay > 0) {
+    setTimeout(invokeMethod, delay);
+  } else {
+    invokeMethod();
+  }
 };
