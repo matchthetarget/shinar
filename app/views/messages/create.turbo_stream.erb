@@ -2,12 +2,12 @@
 <turbo-stream action="refresh"></turbo-stream>
 
 <%# Replace the form to clear it %>
-<%= turbo_stream.replace dom_id(@chat, :new_message_form) do %>
+<%= turbo_stream.replace dom_id_for(@chat, :new_message_form) do %>
   <%= render "messages/new_form", chat: @chat %>
 <% end %>
 
 <%# Scroll to bottom after a small delay to ensure content is rendered %>
 <%= turbo_stream_action_tag :invoke_stimulus,
-      target: "##{dom_id(@chat, :message_list)}",
+      target: "##{dom_id_for(@chat, :message_list)}",
       method: "scrollToBottom",
       delay: 500 %>

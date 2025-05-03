@@ -1,4 +1,4 @@
-<div id="<%= dom_id(chat, :new_message_form) %>" class="py-2 bg-white">
+<div id="<%= dom_id_for(chat, :new_message_form) %>" class="py-2 bg-white">
   <div data-turbo-permanent="true">
     <%= render "messages/form", chat: chat, message: chat.messages.build %>
   </div>

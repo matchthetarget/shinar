@@ -35,4 +35,10 @@ module ApplicationHelper
     # Mark as safe since we've already escaped everything
     result.html_safe
   end
+
+  def dom_id_for(*things)
+    things.map do |thing|
+      thing.is_a?(ActiveRecord::Base) ? dom_id(thing) : thing.to_s
+    end.join("_")
+  end
 end
