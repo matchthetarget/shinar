@@ -34,3 +34,18 @@ body {
     border: 1px solid #dee2e6;
   }
 }
+
+// =====================================
+// CHAT DATE HEADERS STYLES
+// =====================================
+
+// Fix for reversed list-group date headers
+.list-group.flex-column-reverse {
+  .list-group-item:last-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+  
+  .list-group-item:first-child {
+    border-top: none;
+  }
+}

@@ -2,7 +2,7 @@
 
 <% content_for :title, "#{@chat.subject} | Shinar" %>
 
-<div class="d-flex align-items-center mb-4">
+<div class="d-flex align-items-center mb-3">
   <%= link_to chats_path, class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;" do %>
     <i class="fas fa-arrow-left"></i>
   <% end %>
@@ -23,10 +23,10 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row flex-grow-1 overflow-hidden">
   <!-- Mobile-first order: Chat members first on small screens -->
-  <div class="col-md-4 col-lg-3 order-md-2 mb-4 mb-md-0">
-    <div class="position-sticky" style="top: 1rem;">
+  <div class="col-md-4 col-lg-3 order-md-2 mb-md-0 d-flex flex-column">
+    <div class="position-sticky h-100 d-flex flex-column" style="top: 0;">
       <!-- QR and Share buttons -->
       <div class="d-flex flex-column gap-2 mb-3">
         <%= link_to qr_chat_path(@chat), class: "btn btn-outline-success" do %>
@@ -39,7 +39,7 @@
       </div>
       
       <!-- Chat members list -->
-      <div class="list-group mb-0">
+      <div class="list-group mb-0 flex-grow-1 overflow-auto">
         <div class="list-group-item text-center bg-light text-nowrap">
           Chat members
         </div>
@@ -49,30 +49,41 @@
   </div>
   
   <!-- Chat messages second on mobile, first on larger screens -->
-  <div class="col-md-8 col-lg-9 order-md-1 mb-5">
-    <div class="list-group mb-0 d-flex flex-column-reverse" style="height: 70vh; overflow-y: auto;">
-      <%= render "messages/new_form", chat: @chat %>
-      
-      <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
-      
-      <% if messages_by_day.empty? %>
-        <div class="list-group-item text-center bg-light text-nowrap">
-          Today
-        </div>
-      <% else %>
-        <% messages_by_day.to_a.reverse.each do |day, messages| %>
-          <%= render messages.reverse %>
-          <div class="list-group-item text-center bg-light text-nowrap">
-            <% if day == Date.today %>
-              Today
-            <% elsif day == Date.yesterday %>
-              Yesterday
+  <div class="col-md-8 col-lg-9 order-md-1 d-flex flex-column overflow-hidden">
+    <div class="d-flex flex-column h-100 overflow-hidden">
+      <!-- Message container with fixed form at bottom -->
+      <div class="position-relative flex-grow-1 overflow-hidden">
+        <!-- Message list with internal scrolling -->
+        <div class="position-absolute top-0 start-0 bottom-0 end-0 overflow-auto">
+          <div class="list-group d-flex flex-column-reverse mb-0">
+            <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
+            
+            <% if messages_by_day.empty? %>
+              <div class="list-group-item text-center bg-light text-nowrap">
+                Today
+              </div>
             <% else %>
-              <%= day.strftime("%A, %B %-d, %Y") %>
+              <% messages_by_day.to_a.reverse.each do |day, messages| %>
+                <%= render messages.reverse %>
+                <div class="list-group-item text-center bg-light text-nowrap">
+                  <% if day == Date.today %>
+                    Today
+                  <% elsif day == Date.yesterday %>
+                    Yesterday
+                  <% else %>
+                    <%= day.strftime("%A, %B %-d, %Y") %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
           </div>
-        <% end %>
-      <% end %>
+        </div>
+      </div>
+
+      <!-- Fixed new message form at bottom -->
+      <div class="mt-auto">
+        <%= render "messages/new_form", chat: @chat %>
+      </div>
     </div>
   </div>
 </div>
