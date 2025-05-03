@@ -25,5 +25,5 @@ class Translation < ApplicationRecord
   belongs_to :language
 
   validates :content, presence: true
-  validates :language_id, uniqueness: {scope: :message_id, message: "translation already exists for this language"}
+  validates :language_id, uniqueness: { scope: :message_id, message: "translation already exists for this language" }
 end

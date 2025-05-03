@@ -37,7 +37,7 @@ class ChatPolicy
     end
 
     def resolve
-      @scope.joins(:chat_users).where(chat_users: {user_id: @user.id})
+      @scope.joins(:chat_users).where(chat_users: { user_id: @user.id })
     end
 
     private

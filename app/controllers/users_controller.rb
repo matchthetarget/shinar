@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :store_location, only: [:edit]
-  before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :store_location, only: [ :edit ]
+  before_action :authorize_user, only: [ :edit, :update, :destroy ]
 
   # GET /users or /users.json
   def index
@@ -85,7 +85,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.expect(user: [:name, :preferred_language_id, :timezone])
+    params.expect(user: [ :name, :preferred_language_id, :timezone ])
   end
 
   def authorize_user

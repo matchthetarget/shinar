@@ -66,6 +66,6 @@ class ChatUsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def chat_user_params
-    params.expect(chat_user: [:chat_id, :user_id])
+    params.expect(chat_user: [ :chat_id, :user_id ])
   end
 end

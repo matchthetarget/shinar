@@ -1,13 +1,11 @@
-<%= form_with(model: [chat, message], data: { controller: "autofocus autogrow", autogrow_submit_on_enter_value: true }) do |form| %>
+<%= form_with(model: [chat, message]) do |form| %>
   <div class="d-flex align-items-end gap-3">
     <div class="flex-grow-1">
       <%= form.label :content, class: "visually-hidden" %>
       <%= form.text_area :content,
                        class: "form-control #{'is-invalid' if message.errors[:content].any?}",
-                       autofocus: true,
                        data: {
-                         autogrow_target: "textarea",
-                         action: "input->autogrow#update"
+                         controller: "autosize"
                        },
                        rows: 1 %>
       <% if message.errors[:content].any? %>
