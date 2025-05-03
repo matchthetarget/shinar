@@ -1,50 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-light bg-light">
   <div class="container">
-    <div class="row w-100">
-      <div class="col-lg-10 offset-lg-1">
-        <div class="row d-flex justify-content-between align-items-center">
-          <div class="col">
-            <a class="navbar-brand d-flex align-items-center" href="/">
-              <div class="me-2">
-                <%= render partial: "shared/logo" %>
-              </div>
-              <span class=" fs-4" style="font-family: 'Cinzel Decorative', serif;">Shinar</span>
-            </a>
-          </div>
-
-          <div class="col d-flex justify-content-center">
-            <% if current_user.present? %>
-              <%= form_with(model: current_user, class: "d-inline", html: { id: "navbar_language_form" }) do |f| %>
-                <div>
-                  <%= f.label :preferred_language_id, "Select language", class: "visually-hidden", for: "navbar_preferred_language" %>
-                  <%= f.collection_select :preferred_language_id,
-                    Language.all.order(:name_english),
-                    :id,
-                    :to_display,
-                    { selected: current_user.preferred_language_id },
-                    { 
-                      class: "form-select", 
-                      style: "width: auto", 
-                      onchange: "this.form.submit()",
-                      id: "navbar_preferred_language"
-                    }
-                  %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-
-          <div class="col d-flex justify-content-end">
-            <div class="d-flex align-items-center">
-              <% if current_user.present? %>
-                <%= link_to edit_user_path(current_user), class: "text-decoration-none text-secondary" do %>
-                  <i class="fa-regular fa-user me-1"></i> Profile
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <div class="me-2">
+        <%= render partial: "shared/logo" %>
       </div>
-    </div>
+      <span class="fs-4" style="font-family: 'Cinzel Decorative', serif;">SHINAR</span>
+    </a>
+    
+    <!-- Middle section with language selector -->
+    <% if current_user.present? %>
+      <div class="d-flex">
+        <%= form_with(model: current_user, html: { id: "navbar_language_form" }) do |f| %>
+          <%= f.label :preferred_language_id, "Select language", class: "visually-hidden", for: "navbar_preferred_language" %>
+          <%= f.collection_select :preferred_language_id,
+            Language.all.order(:name_english),
+            :id,
+            :to_display,
+            { selected: current_user.preferred_language_id },
+            { 
+              class: "form-select", 
+              style: "width: 150px;",
+              onchange: "this.form.submit()",
+              id: "navbar_preferred_language"
+            }
+          %>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <!-- Profile link (icon only on mobile, icon+text on larger screens) -->
+    <% if current_user.present? %>
+      <%= link_to edit_user_path(current_user), class: "d-flex align-items-center text-decoration-none text-secondary" do %>
+        <i class="fa-regular fa-user me-1"></i>
+        <span class="d-none d-md-inline">Profile</span>
+      <% end %>
+    <% end %>
   </div>
 </nav>
