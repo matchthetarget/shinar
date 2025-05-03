@@ -51,7 +51,9 @@
   
   <!-- Chat messages second on mobile, first on larger screens -->
   <div class="col-md-8 col-lg-9 order-md-1 mb-5">
-    <div class="list-group mb-0">
+    <div class="list-group mb-0 d-flex flex-column-reverse" style="height: 70vh; overflow-y: auto;">
+      <%= render "messages/new_form", chat: @chat %>
+      
       <% messages_by_day = @chat.messages.order(created_at: :asc).group_by_day(&:created_at) %>
       
       <% if messages_by_day.empty? %>
@@ -59,7 +61,8 @@
           Today
         </div>
       <% else %>
-        <% messages_by_day.each do |day, messages| %>
+        <% messages_by_day.to_a.reverse.each do |day, messages| %>
+          <%= render messages.reverse %>
           <div class="list-group-item text-center bg-light text-nowrap">
             <% if day == Date.today %>
               Today
@@ -69,11 +72,8 @@
               <%= day.strftime("%A, %B %-d, %Y") %>
             <% end %>
           </div>
-          <%= render messages %>
         <% end %>
       <% end %>
-
-      <%= render "messages/new_form", chat: @chat %>
     </div>
   </div>
 </div>
