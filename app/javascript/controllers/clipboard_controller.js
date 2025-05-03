@@ -9,18 +9,10 @@ export default class extends Controller {
     
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
-        this.showToast("Copied to clipboard!")
+        console.log("Copied to clipboard")
       })
       .catch(err => {
         console.error("Failed to copy: ", err)
-        this.showToast("Failed to copy to clipboard", "error")
       })
-  }
-
-  showToast(message, type = "success") {
-    const event = new CustomEvent("show-toast", {
-      detail: { message, type }
-    })
-    window.dispatchEvent(event)
   }
 }
