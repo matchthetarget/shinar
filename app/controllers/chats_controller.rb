@@ -78,7 +78,7 @@ class ChatsController < ApplicationController
       format.html
       format.svg { render inline: @qr.as_svg(viewbox: true) }
       format.png do
-        send_data @qr.as_png(size: 300).to_s, type: "image/png", disposition: "inline"
+        send_data @qr.as_png(size: 300).to_s, type: "image/png", disposition: "attachment", filename: "#{@chat.subject.parameterize}-qr-code.png"
       end
     end
   end
