@@ -18,7 +18,7 @@ export default class extends Controller {
       const autofocusElement = this.element.querySelector('[autofocus]')
       if (autofocusElement) {
         autofocusElement.focus()
-        autofocusElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        autofocusElement.scrollIntoView({ behavior: 'auto', block: 'center' })
       }
     }, 300) // Increased delay to ensure DOM is stable and dropdowns can initialize first
   }
