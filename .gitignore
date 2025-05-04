@@ -48,3 +48,5 @@ examples.txt
 
 # Ignore bundled gems in vendor/bundle
 /vendor/bundle/
+
+**/.claude/settings.local.json
