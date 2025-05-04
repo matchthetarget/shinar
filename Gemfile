@@ -30,7 +30,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Feature gems
 gem "active_link_to"               # Helper for creating active links
-gem "ai-chat", "< 1.0.0"           # Makes it easy to chat with LLMs
+gem "openai-chat", "< 1.0.0"           # Makes it easy to chat with LLMs
 gem "carrierwave"                  # File uploads
 gem "cloudinary"                   # Cloud image storage
 gem "devise"                       # Authentication

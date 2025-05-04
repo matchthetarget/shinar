@@ -62,7 +62,7 @@ class Message < ApplicationRecord
   private
 
   def translate(target_language)
-    chat = AI::Chat.new
+    chat = OpenAI::Chat.new
     chat.model = ENV.fetch("OPENAI_MODEL")
     chat.messages = [
       {
