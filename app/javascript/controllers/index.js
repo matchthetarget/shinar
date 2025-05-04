@@ -6,9 +6,11 @@ import AutosizeController from "./autosize_controller";
 import ClipboardController from "./clipboard_controller";
 import ToastController from "./toast_controller";
 import ChatController from "./chat_controller";
+import ShiftEnterController from "./shift_enter_controller";
 
 // Register controllers
 application.register("autosize", AutosizeController);
 application.register("clipboard", ClipboardController);
 application.register("toast", ToastController);
 application.register("chat", ChatController);
+application.register("shift-enter", ShiftEnterController);
