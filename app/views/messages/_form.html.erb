@@ -5,7 +5,7 @@
       <%= form.text_area :content,
                        class: "form-control #{'is-invalid' if message.errors[:content].any?}",
                        data: {
-                         controller: "autosize enter-submit"
+                         controller: "autosize"
                        },
                        placeholder: "Message",
                        rows: 1 %>
