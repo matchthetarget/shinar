@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_03_162521) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_12_165833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,39 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_03_162521) do
     t.index ["original_language_id"], name: "index_messages_on_original_language_id"
   end
 
+  create_table "noticed_events", force: :cascade do |t|
+    t.string "type"
+    t.string "record_type"
+    t.bigint "record_id"
+    t.jsonb "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "notifications_count"
+    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
+  end
+
+  create_table "noticed_notifications", force: :cascade do |t|
+    t.string "type"
+    t.bigint "event_id", null: false
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.datetime "read_at", precision: nil
+    t.datetime "seen_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
+  end
+
+  create_table "notification_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token", null: false
+    t.string "platform", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notification_tokens_on_user_id"
+  end
+
   create_table "translations", force: :cascade do |t|
     t.bigint "message_id", null: false
     t.bigint "language_id", null: false
@@ -73,7 +106,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_03_162521) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "preferred_language_id", null: false
-    t.string "timezone", default: "UTC"
+    t.string "timezone", default: "America/Chicago"
     t.index ["preferred_language_id"], name: "index_users_on_preferred_language_id"
   end
 
@@ -83,6 +116,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_03_162521) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages", column: "original_language_id"
   add_foreign_key "messages", "users", column: "author_id"
+  add_foreign_key "notification_tokens", "users"
   add_foreign_key "translations", "languages"
   add_foreign_key "translations", "messages"
   add_foreign_key "users", "languages", column: "preferred_language_id"

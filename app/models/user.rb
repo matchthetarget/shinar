@@ -4,7 +4,7 @@
 #
 #  id                    :bigint           not null, primary key
 #  name                  :string           default("pending"), not null
-#  timezone              :string           default("UTC")
+#  timezone              :string           default("America/Chicago")
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  preferred_language_id :bigint           not null
@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :chat_users, dependent: :destroy
   has_many :chats, through: :chat_users, source: :chat
   has_many :messages, foreign_key: "author_id", dependent: :destroy
+  has_many :notification_tokens, dependent: :destroy
 
   before_create :set_random_name
   before_validation :set_default_language
