@@ -34,6 +34,9 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        @chat.users.excluding(current_user).each do |user|
+          NewMessageNotifier.with(chat: @chat).deliver(user)
+        end
         format.turbo_stream
         format.html { redirect_to chat_url(@message.chat) }
         format.json { render :show, status: :created, location: @message }
