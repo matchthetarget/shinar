@@ -46,6 +46,9 @@ gem "rqrcode"                      # QR code generation
 gem "simple_form"                  # Simplified form builder
 gem "strip_attributes"             # Remove whitespace from model attributes
 gem "validate_url"                 # URL validation
+gem "noticed"                      # Push notifications
+gem "apnotic"                      # Communicate with APN for iOS push notifications
+gem "googleauth"                   # Communicate with Google for Android push notifications
 
 group :development, :test do
   gem "brakeman", require: false   # Security vulnerability scanner
