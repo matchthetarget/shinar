@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :configurations, only: [] do
     get :android_v1, on: :collection
+    get :ios_v1, on: :collection
   end
 
   resources :chat_users
