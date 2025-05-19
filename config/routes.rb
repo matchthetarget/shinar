@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     end
   end
   resources :users do
+    collection do
+      get :edit
+    end
+
     member do
       delete :sign_out
     end

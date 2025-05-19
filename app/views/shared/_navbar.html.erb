@@ -29,7 +29,7 @@
         
         <!-- Profile link (icon only on mobile, icon+text on larger screens) -->
         <% if current_user.present? %>
-          <%= link_to edit_user_path(current_user), class: "d-flex align-items-center text-decoration-none text-secondary" do %>
+          <%= link_to edit_users_path, class: "d-flex align-items-center text-decoration-none text-secondary" do %>
             <i class="fa-regular fa-user me-1"></i>
             <span class="d-none d-md-inline">Profile</span>
           <% end %>
