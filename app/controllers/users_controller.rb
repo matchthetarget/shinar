@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show update destroy]
   before_action :store_location, only: [ :edit ]
-  before_action :authorize_user, only: [ :edit, :update, :destroy ]
+  before_action :authorize_user, only: [ :update, :destroy ]
 
   # GET /users or /users.json
   def index
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = current_user
   end
 
   # POST /users or /users.json
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        redirect_path = if request.referrer&.include?(edit_user_path(@user))
+        redirect_path = if request.referrer&.include?(edit_users_path)
           # Coming from edit page, use stored location
           session[:return_to] || root_path
         else
@@ -94,7 +95,7 @@ class UsersController < ApplicationController
 
   def store_location
     # Store the HTTP_REFERER for redirect after update
-    if request.referer && !request.referer.include?(edit_user_path(@user))
+    if request.referer && !request.referer.include?(edit_users_path)
       session[:return_to] = request.referer
     end
   end

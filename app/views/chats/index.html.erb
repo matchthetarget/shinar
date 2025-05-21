@@ -1,10 +1,10 @@
 <% content_for :title, "All Chats | Shinar" %>
 
-<div class="d-flex align-items-center mb-4">
+<div class="d-flex align-items-center mb-4 d-hotwire-native-none">
   <%= button_to chats_path, method: :post, class: "btn btn-primary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;", data: {
         controller: "bridge--button",
         bridge_title: "Add",
-        bridge_ios_image_name: "plus",
+        bridge_ios_image_name: "plus.circle.fill",
         bridge_android_icon_name: "add"
         }  do %>
     <i class="fas fa-plus"></i>

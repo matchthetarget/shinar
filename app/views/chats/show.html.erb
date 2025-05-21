@@ -3,23 +3,33 @@
 <% content_for :title, "#{@chat.subject} | Shinar" %>
 
 <div class="d-flex align-items-center mb-3">
-  <div>
+  <div class="d-hotwire-native-none">
     <%= link_to chats_path, class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;" do %>
       <i class="fas fa-arrow-left"></i>
     <% end %>
   </div>
-  <nav aria-label="breadcrumb" class="mb-0 me-auto">
+  <nav aria-label="breadcrumb" class="mb-0 me-auto d-hotwire-native-none">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item"><a href="<%= chats_path %>">Chats</a></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @chat.subject %></li>
     </ol>
   </nav>
   <div class="d-flex gap-2">
-    <%= link_to edit_chat_path(@chat), class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;" do %>
+    <%= link_to edit_chat_path(@chat), class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;", data: {
+        controller: "bridge--button",
+            bridge_title: "Edit",
+            bridge_ios_image_name: "square.and.pencil",
+            bridge_android_icon_name: "edit"
+            } do %>
       <i class="fa-regular fa-pen-to-square"></i>
     <% end %>
 
-    <%= button_to @chat, method: :delete, class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;", form: { data: { turbo_confirm: "Are you sure?" } } do %>
+    <%= button_to @chat, method: :delete, class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center", style: "width: 40px; height: 40px; padding: 0;", data: {
+      controller: "bridge--button",
+      bridge_title: "Delete",
+      bridge_ios_image_name: "trash.circle",
+      bridge_android_icon_name: "delete"
+    }, form: { data: { turbo_confirm: "Are you sure?" } } do %>
       <i class="fa-regular fa-trash-can"></i>
     <% end %>
   </div>
@@ -88,6 +98,6 @@
   </div>
 </div>
 
-<div class="col-12 col-md-8 col-lg-9 pt-1 pb-3">
+<div class="col-12 col-md-8 col-lg-9 pt-1 pb-5">
   <%= render "messages/new_form", chat: @chat %>
 </div>

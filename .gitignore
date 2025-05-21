@@ -50,3 +50,5 @@ examples.txt
 /vendor/bundle/
 
 **/.claude/settings.local.json
+
+dump.rdb
