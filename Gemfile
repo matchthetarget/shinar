@@ -82,3 +82,4 @@ group :test do
 end
 
 gem "turbo_power", "~> 0.7.0"
+gem "markdown_views"
