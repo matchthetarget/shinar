@@ -112,7 +112,7 @@
   
   If we transfer your personal information out of Europe, we will rely on recognized transfer mechanisms like the European Commission's Standard Contractual Clauses, or any equivalent contracts issued by the relevant competent authority of the UK, as relevant, unless the data transfer is to a country that has been determined to provide an adequate level of protection.
   
-  ## Contact
+  <h2 id="contact">Contact</h2>
   
   Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please email us at shinar-support@firstdraft.com.
   
