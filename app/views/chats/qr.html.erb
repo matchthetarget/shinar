@@ -1,4 +1,6 @@
-<div class="d-flex align-items-center mb-3">
+<% content_for :title, "#{@chat.subject} QR Code | Shinar" %>
+
+<div class="d-flex align-items-center mb-3 d-hotwire-native-none">
   <%= link_to chat_path(@chat), class: "btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center me-3", style: "width: 40px; height: 40px; padding: 0;" do %>
     <i class="fas fa-arrow-left"></i>
   <% end %>

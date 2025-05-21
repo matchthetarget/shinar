@@ -16,6 +16,15 @@
     <div class="card mb-4">
       <div class="card-body">
         <%= render "form", user: @user %>
+
+      <%= link_to chats_path, class: "d-none d-hotwire-native-block", data: {
+        controller: "bridge--button",
+            bridge_title: "Back",
+            bridge_ios_image_name: "xmark",
+            bridge_android_icon_name: "back"
+            } do %>
+        <i class="fas fa-qrcode me-1 fa-fw"></i> QR
+      <% end %>
         
         <div class="text-center">
           <%= button_to sign_out_user_path(@user), method: :delete, class: "btn btn-link text-danger", data: { turbo_confirm: "Are you sure you want to sign out?" } do %>
