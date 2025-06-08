@@ -52,3 +52,5 @@ examples.txt
 **/.claude/settings.local.json
 
 dump.rdb
+
+.vscode/*
