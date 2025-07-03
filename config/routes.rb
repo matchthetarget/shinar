@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :admins
   root to: "chats#index"
+
+  # Analytics dashboard (admin only)
+  authenticate :admin do
+    mount Blazer::Engine, at: "blazer"
+  end
+
+  resources :metrics, only: [ :index ]
 
   resources :configurations, only: [] do
     get :android_v1, on: :collection

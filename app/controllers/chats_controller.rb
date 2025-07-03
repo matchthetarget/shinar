@@ -14,6 +14,12 @@ class ChatsController < ApplicationController
   def show
     unless @chat.users.include?(current_user)
       @chat.chat_users.create(user: current_user)
+
+      # Track user joining chat
+      ahoy.track "user_joined_chat", {
+        chat_id: @chat.id,
+        chat_token: @chat.token
+      }
     end
 
     # Eager load chat users, their users, and preferred languages to avoid N+1 queries
@@ -35,6 +41,12 @@ class ChatsController < ApplicationController
 
     respond_to do |format|
       if @chat.save
+        # Track chat creation
+        ahoy.track "chat_created", {
+          chat_id: @chat.id,
+          chat_token: @chat.token
+        }
+
         format.html { redirect_to @chat, notice: "New chat created!" }
         format.json { render :show, status: :created, location: @chat }
       else

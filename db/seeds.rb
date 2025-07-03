@@ -17,3 +17,17 @@ languages_data.each do |language_data|
 end
 
 puts "#{Language.count} languages created!"
+
+# Create admin user
+admin = Admin.find_or_create_by!(email: "admin@shinar.com") do |admin|
+  admin.password = "password123"
+  admin.password_confirmation = "password123"
+end
+
+puts "Admin created: #{admin.email}"
+puts "Password: password123"
+
+# Load Blazer queries
+if defined?(Blazer)
+  load Rails.root.join("db", "seeds", "blazer_queries.rb")
+end

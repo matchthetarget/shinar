@@ -1,0 +1,111 @@
+<div class="container my-4">
+  <h1 class="mb-4">Usage Metrics Dashboard</h1>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Visits</h5>
+          <h2 class="text-primary"><%= number_with_delimiter(@total_visits) %></h2>
+          <p class="text-muted mb-0">Today: <%= @visits_today %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Users</h5>
+          <h2 class="text-success"><%= number_with_delimiter(@total_users) %></h2>
+          <p class="text-muted mb-0">Active (7d): <%= @active_users %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Chats</h5>
+          <h2 class="text-info"><%= number_with_delimiter(@total_chats) %></h2>
+          <p class="text-muted mb-0">Active (7d): <%= @active_chats %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Messages</h5>
+          <h2 class="text-warning"><%= number_with_delimiter(@total_messages) %></h2>
+          <p class="text-muted mb-0">Today: <%= @messages_today %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Messages by Day (Last 30 Days)</h5>
+        </div>
+        <div class="card-body">
+          <%= line_chart @messages_by_day, height: "250px" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Events by Type</h5>
+        </div>
+        <div class="card-body">
+          <%= pie_chart @events_by_name, height: "250px" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Translations</h5>
+        </div>
+        <div class="card-body">
+          <p>Total Translations: <strong><%= number_with_delimiter(@total_translations) %></strong></p>
+          <p>Translations Today: <strong><%= @translations_today %></strong></p>
+          <hr>
+          <h6>By Target Language:</h6>
+          <table class="table table-sm">
+            <% @translations_by_language.sort_by { |_, count| -count }.first(10).each do |language, count| %>
+              <tr>
+                <td><%= language %></td>
+                <td class="text-end"><%= number_with_delimiter(count) %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Users by Preferred Language</h5>
+        </div>
+        <div class="card-body">
+          <%= bar_chart @users_by_language, height: "250px" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5>Advanced Analytics</h5>
+          <p>For more detailed analytics and custom queries:</p>
+          <%= link_to "Open Blazer Dashboard", blazer_path, class: "btn btn-primary", target: "_blank" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

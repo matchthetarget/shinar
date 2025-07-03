@@ -55,6 +55,20 @@ class Message < ApplicationRecord
         content: translated_text
       )
 
+      # Track translation creation
+      Ahoy::Event.create!(
+        name: "translation_created",
+        properties: {
+          message_id: id,
+          chat_id: chat_id,
+          from_language: original_language.name_english,
+          to_language: language.name_english,
+          content_length: translated_text.length
+        },
+        time: Time.current,
+        user_id: Current.user&.id
+      )
+
       new_translation.content
     end
   end
