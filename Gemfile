@@ -50,6 +50,10 @@ gem "noticed"                      # Push notifications
 gem "apnotic"                      # Communicate with APN for iOS push notifications
 gem "googleauth"                   # Communicate with Google for Android push notifications
 
+# Analytics gems
+gem "ahoy_matey"                   # First-party analytics for Rails
+gem "blazer"                       # Business intelligence dashboard
+
 group :development, :test do
   gem "brakeman", require: false   # Security vulnerability scanner
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"

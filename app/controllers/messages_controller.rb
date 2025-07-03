@@ -34,6 +34,14 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        # Track message creation event
+        ahoy.track "message_created", {
+          chat_id: @chat.id,
+          message_id: @message.id,
+          original_language: @message.original_language.code,
+          content_length: @message.content.length
+        }
+
         @chat.users.excluding(current_user).each do |user|
           NewMessageNotifier.with(chat: @chat).deliver(user)
         end

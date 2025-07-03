@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_user
   around_action :set_time_zone, if: :current_user
+  after_action :track_action
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -24,6 +25,9 @@ class ApplicationController < ActionController::Base
 
       flash.now[:notice] = "Signed in as #{@_current_user.name}."
     end
+
+    # Set current user for Ahoy tracking
+    Current.user = @_current_user
   end
 
   def set_time_zone(&block)
@@ -39,5 +43,9 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_back(fallback_location: root_path, status: :see_other)
+  end
+
+  def track_action
+    ahoy.track "#{controller_name}##{action_name}", request.filtered_parameters
   end
 end
